@@ -1,6 +1,6 @@
 import { useFocusEffect } from '@react-navigation/native'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native'
+import React, { useCallback, useRef, useState } from 'react'
+import { Dimensions, Image, Platform, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { VectorColor } from '../../../components/color/VectorColor'
 import {
   FlexModal,
@@ -11,7 +11,7 @@ import { scale } from '../../../components/ScalingUtils'
 import { ItemProps, itemWidth, sliderWidth } from './HomeScreens'
 import SliderEntry from '../../../components/snapCarousel/carousel/SliderEntry'
 import Carousel from '../../../components/snapCarousel'
-
+const { width } = Dimensions.get('window')
 interface PropsIems {
   itemPage: any[]
 }
@@ -34,12 +34,13 @@ const ItemHomePage = ({ itemPage }: PropsIems) => {
 
   const _renderItem = ({ item, index }: any, parallaxProps: any) => {
     return (
-      <SliderEntry
-        data={item}
-        even={(index + 1) % 2 === 0}
-        parallax={true}
-        parallaxProps={parallaxProps}
-      />
+      // <SliderEntry
+      //   data={item}
+      //   even={(index + 1) % 2 === 0}
+      //   parallax={true}
+      //   parallaxProps={parallaxProps}
+      // />
+      <Image source={{uri: item?.illustration}} style={{ width: scale(300), height: scale(400) }} />
     )
   }
 
@@ -49,8 +50,8 @@ const ItemHomePage = ({ itemPage }: PropsIems) => {
         ref={_slider1Ref}
         data={listPictures}
         renderItem={_renderItem}
-        sliderWidth={sliderWidth}
-        itemWidth={itemWidth * 2}
+        sliderWidth={Platform.OS === 'ios' ? sliderWidth : width * (200 / width)}
+        itemWidth={Platform.OS === 'ios' ? itemWidth * 2 : itemWidth}
         hasParallaxImages={true}
         firstItem={1}
         inactiveSlideScale={0.94}
