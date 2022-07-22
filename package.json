@@ -3,10 +3,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "startNoCache": "react-native start --reset-cache",
+    "watchmanClean": "watchman watch-del-all",
     "start": "expo start --dev-client",
     "android": "expo run:android",
     "ios": "expo run:ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "pa.i.ios": "cd ios && pod install",
+    "pa.i.adr": "cd android && ./gradlew clean",
+    "pa.run.ios": "npx react-native run-ios",
+    "pa.run.android": "npx react-native run-android"
   },
   "dependencies": {
     "expo": "~45.0.0",
