@@ -49,24 +49,24 @@ export default class Pagination extends PureComponent {
         super(props);
 
         // Warnings
-        if ((props.dotColor && !props.inactiveDotColor) || (!props.dotColor && props.inactiveDotColor)) {
-            console.warn(
-                'react-native-snap-carousel | Pagination: ' +
-                'You need to specify both `dotColor` and `inactiveDotColor`'
-            );
-        }
-        if ((props.dotElement && !props.inactiveDotElement) || (!props.dotElement && props.inactiveDotElement)) {
-            console.warn(
-                'react-native-snap-carousel | Pagination: ' +
-                'You need to specify both `dotElement` and `inactiveDotElement`'
-            );
-        }
-        if (props.tappableDots && props.carouselRef === undefined) {
-            console.warn(
-                'react-native-snap-carousel | Pagination: ' +
-                'You must specify prop `carouselRef` when setting `tappableDots` to `true`'
-            );
-        }
+        // if ((props.dotColor && !props.inactiveDotColor) || (!props.dotColor && props.inactiveDotColor)) {
+        //     console.warn(
+        //         'react-native-snap-carousel | Pagination: ' +
+        //         'You need to specify both `dotColor` and `inactiveDotColor`'
+        //     );
+        // }
+        // if ((props.dotElement && !props.inactiveDotElement) || (!props.dotElement && props.inactiveDotElement)) {
+        //     console.warn(
+        //         'react-native-snap-carousel | Pagination: ' +
+        //         'You need to specify both `dotElement` and `inactiveDotElement`'
+        //     );
+        // }
+        // if (props.tappableDots && props.carouselRef === undefined) {
+        //     console.warn(
+        //         'react-native-snap-carousel | Pagination: ' +
+        //         'You must specify prop `carouselRef` when setting `tappableDots` to `true`'
+        //     );
+        // }
     }
 
     _needsRTLAdaptations () {

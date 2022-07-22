@@ -1,7 +1,11 @@
-import React, { useRef, useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import { StyleSheet, Dimensions, View } from 'react-native'
+import { VectorColor } from '../../../components/color/VectorColor'
+import { scale } from '../../../components/ScalingUtils'
 import Carousel, { Pagination } from '../../../components/snapCarousel'
 import SliderEntry from '../../../components/snapCarousel/carousel/SliderEntry'
+import { ENTRIES1 } from '../../../utils/constants'
+import { DetailScreens } from './DetailScreens'
 const { width: viewportWidth } = Dimensions.get('window')
 
 function wp(percentage: any) {
@@ -11,108 +15,78 @@ function wp(percentage: any) {
 const SLIDER_1_FIRST_ITEM = 1
 const slideWidth = wp(75)
 const itemHorizontalMargin = wp(2)
-export const ENTRIES1 = [
-  {
-    title: 'Beautiful and dramatic Antelope Canyon',
-    subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-    illustration: 'https://i.imgur.com/UYiroysl.jpg',
-  },
-  {
-    title: 'Earlier this morning, NYC',
-    subtitle: 'Lorem ipsum dolor sit amet',
-    illustration: 'https://i.imgur.com/UPrs1EWl.jpg',
-  },
-  {
-    title: 'White Pocket Sunset',
-    subtitle: 'Lorem ipsum dolor sit amet et nuncat ',
-    illustration: 'https://i.imgur.com/MABUbpDl.jpg',
-  },
-  {
-    title: 'Acrocorinth, Greece',
-    subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-    illustration: 'https://i.imgur.com/KZsmUi2l.jpg',
-  },
-  {
-    title: 'The lone tree, majestic landscape of New Zealand',
-    subtitle: 'Lorem ipsum dolor sit amet',
-    illustration: 'https://i.imgur.com/2nCt3Sbl.jpg',
-  },
-  {
-    title: 'Middle Earth, Germany',
-    subtitle: 'Lorem ipsum dolor sit amet',
-    illustration: 'https://i.imgur.com/lceHsT6l.jpg',
-  },
-]
+
+export interface ItemProps {
+  id: number, illustration: string
+}
 
 export const sliderWidth = viewportWidth
 export const itemWidth = slideWidth + itemHorizontalMargin * 2
 export const HomeScreen = () => {
+  const [visible, setVisible] = useState<boolean>(false)
   const _slider1Ref = useRef<any>(null)
   const [slider1ActiveSlide, setSlider1ActiveSlide] = useState<number>(0)
-  const _renderItemWithParallax = ({ item, index }: any, parallaxProps: any) => {
+  const [item, setItem] = useState<ItemProps[]>([])
+
+  const handleEvents = useCallback((value: any) => {
+    setVisible(true)
+    setItem(value?.item)
+  }, [])
+
+  const _renderItemWithParallax = (
+    { item, index }: any,
+    parallaxProps: any,
+  ) => {
     return (
       <SliderEntry
         data={item}
         even={(index + 1) % 2 === 0}
         parallax={true}
         parallaxProps={parallaxProps}
+        _handleClick={() => handleEvents(item)}
       />
     )
   }
 
-    const _renderItem = ({ item, index }: any) => {
-    return <SliderEntry data={item} even={(index + 1) % 2 === 0} />;
-}
+  const onClose = useCallback(() => {
+    setVisible(false)
+  }, [])
 
   return (
     <View style={styles.container}>
-      {/* <Carousel
-        ref={_slider1Ref}
-        data={ENTRIES1}
-        renderItem={_renderItemWithParallax}
-        sliderWidth={sliderWidth}
-        itemWidth={itemWidth}
-        hasParallaxImages={true}
-        firstItem={SLIDER_1_FIRST_ITEM}
-        inactiveSlideScale={0.94}
-        inactiveSlideOpacity={0.7}
-        containerCustomStyle={styles.slider}
-        contentContainerCustomStyle={styles.sliderContentContainer}
-        loop={true}
-        loopClonesPerSide={2}
-        autoplay={true}
-        autoplayDelay={500}
-        autoplayInterval={3000}
-        onSnapToItem={setSlider1ActiveSlide}
-      />
+      <View style={{ height: scale(350) }}>
+        <Carousel
+          ref={_slider1Ref}
+          data={ENTRIES1}
+          renderItem={_renderItemWithParallax}
+          sliderWidth={sliderWidth}
+          itemWidth={itemWidth}
+          hasParallaxImages={true}
+          firstItem={SLIDER_1_FIRST_ITEM}
+          inactiveSlideScale={0.94}
+          inactiveSlideOpacity={0.7}
+          containerCustomStyle={styles.slider}
+          contentContainerCustomStyle={styles.sliderContentContainer}
+          loop={true}
+          loopClonesPerSide={2}
+          autoplay={true}
+          autoplayDelay={500}
+          autoplayInterval={4000}
+          onSnapToItem={setSlider1ActiveSlide}
+        />
+      </View>
       <Pagination
         dotsLength={ENTRIES1.length}
         activeDotIndex={slider1ActiveSlide}
         containerStyle={styles.paginationContainer}
-        dotColor={'rgba(255, 255, 255, 0.92)'}
+        dotColor={VectorColor.blue}
         dotStyle={styles.paginationDot}
         inactiveDotColor={'black'}
         inactiveDotOpacity={0.4}
         inactiveDotScale={0.6}
         carouselRef={_slider1Ref}
-      /> */}
-        <Carousel
-                  data={ENTRIES1}
-                  renderItem={_renderItem}
-                  sliderWidth={sliderWidth}
-                  itemWidth={itemWidth}
-                  inactiveSlideScale={0.95}
-                  inactiveSlideOpacity={1}
-                  enableMomentum={true}
-                  activeSlideAlignment={'start'}
-                  containerCustomStyle={styles.slider}
-                  contentContainerCustomStyle={styles.sliderContentContainer}
-                  activeAnimationType={'spring'}
-                  activeAnimationOptions={{
-                      friction: 4,
-                      tension: 40
-                  }}
-                />
+      />
+      <DetailScreens visible={visible} onClose={onClose} item={item} />
     </View>
   )
 }
@@ -120,9 +94,7 @@ export const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'red',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: VectorColor.blueLight,
   },
   slider: {
     marginTop: 15,
@@ -139,5 +111,8 @@ const styles = StyleSheet.create({
     height: 8,
     borderRadius: 4,
     marginHorizontal: 8,
+  },
+  exampleContainerDark: {
+    backgroundColor: VectorColor.black,
   },
 })

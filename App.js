@@ -1,20 +1,18 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
-import { HomeScreen } from "./app/modules/Auth/screens/HomeScreens";
+import AppNavigator from "./app/modules/Auth/navigation/AppNavigator";
+// Redux-Persist
+import { RootSiblingParent } from "react-native-root-siblings";
+// React Native Paper
+import { Provider as PaperProvider } from "react-native-paper";
+import { Theme } from "./app/utils/Theme.tsx";
 
-export default function App() {
+const App = () => {
   return (
-    <View style={styles.container}>
-      <HomeScreen />
-    </View>
+    <RootSiblingParent>
+      <PaperProvider theme={Theme}>
+        <AppNavigator />
+      </PaperProvider>
+    </RootSiblingParent>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+};
+export default App;

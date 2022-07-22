@@ -1,0 +1,9 @@
+export interface RoutePage {
+  name: string
+  component: object
+  options?: object
+}
+
+export enum AppRoutes {
+  HOME = 'HOME',
+}

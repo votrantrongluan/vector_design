@@ -134,10 +134,10 @@ export default class PaginationDot extends PureComponent {
                 const currentRef = carouselRef.current || carouselRef;
                 currentRef._snapToItem(currentRef._getPositionIndex(index));
             } catch (error) {
-                console.warn(
-                    'react-native-snap-carousel | Pagination: ' +
-                    '`carouselRef` has to be a Carousel ref.\n' + error
-                );
+                // console.warn(
+                //     'react-native-snap-carousel | Pagination: ' +
+                //     '`carouselRef` has to be a Carousel ref.\n' + error
+                // );
             }
         } : undefined;
 
