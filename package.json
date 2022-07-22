@@ -11,21 +11,37 @@
     "web": "expo start --web",
     "pa.i.ios": "cd ios && pod install",
     "pa.i.adr": "cd android && ./gradlew clean",
-    "pa.run.ios": "npx react-native run-ios",
+    "pa.run.ios": "yarn && npx react-native run-ios --simulator='iPhone 12'",
+    "ipad": "yarn init:env && react-native run-ios --simulator='iPad (8th generation)'",
     "pa.run.android": "npx react-native run-android"
   },
   "dependencies": {
+    "@react-navigation/native": "^6.0.11",
+    "@types/react": "^18.0.15",
+    "@types/react-native": "^0.69.3",
     "expo": "~45.0.0",
     "expo-splash-screen": "~0.15.1",
     "expo-status-bar": "~1.3.0",
     "gh-pages": "^4.0.0",
     "react": "17.0.2",
+    "react-addons-shallow-compare": "^15.6.3",
     "react-dom": "17.0.2",
     "react-native": "0.68.2",
     "react-native-web": "0.17.7"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
+  },
+  "jest": {
+    "preset": "react-native",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
   },
   "private": true
 }
