@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "vector_design",
+    "slug": "vector_design",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "vector_design"
+}
