@@ -4,6 +4,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { AppRoutes } from '../../../components/routes/AppRoutes'
 import { HomeScreen } from '../screens/HomeScreens'
 import { VectorColor } from '../../../components/color/VectorColor'
+import { TranSlationLanguage } from '../../../utils/constants'
+import { StyleSheet, Text, View } from 'react-native'
+import { scale } from '../../../components/ScalingUtils'
+import { BottomNavigatorScreen } from './BottomNavigatorScreen'
 
 const Stack = createNativeStackNavigator<any>()
 
@@ -15,7 +19,14 @@ const HomePages = () => {
       component={HomeScreen}
       key={AppRoutes.HOME}
       options={{
-        title: 'Trang Chủ',
+        headerTitle: () => (
+          <View style={styles.container}>
+            <Text style={styles.titleHeader}>
+              {TranSlationLanguage.Home_Title}
+            </Text>
+            <Text style={styles.titleBottom}>T2 - 8:00 - 17:00</Text>
+          </View>
+        ),
       }}
     />,
   )
@@ -24,19 +35,40 @@ const HomePages = () => {
 
 const AppNavigator = (): React.ReactElement => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={() => ({
-          headerShown: true,
-          gestureEnabled: false,
-          cardStyle: { backgroundColor: 'transparent' },
-          headerTintColor: VectorColor.black,
-        })}
-      >
-        {HomePages()}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={() => ({
+            headerShown: true,
+            gestureEnabled: false,
+            cardStyle: { backgroundColor: 'transparent' },
+            headerTintColor: VectorColor.black,
+          })}
+        >
+          {HomePages()}
+        </Stack.Navigator>
+      </NavigationContainer>
+      <BottomNavigatorScreen />
+    </>
   )
 }
 
 export default AppNavigator
+
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  titleHeader: {
+    fontSize: scale(16),
+    color: VectorColor.black,
+    fontWeight: 'bold',
+  },
+  titleBottom: {
+    fontSize: scale(14),
+    color: VectorColor.black,
+    lineHeight: scale(22),
+    marginTop: scale(1),
+  },
+})

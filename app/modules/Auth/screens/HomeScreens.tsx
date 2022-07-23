@@ -1,11 +1,12 @@
 import React, { useCallback, useRef, useState } from 'react'
-import { StyleSheet, Dimensions, View } from 'react-native'
+import { StyleSheet, Dimensions, View, Text } from 'react-native'
 import { VectorColor } from '../../../components/color/VectorColor'
 import { scale } from '../../../components/ScalingUtils'
 import Carousel, { Pagination } from '../../../components/snapCarousel'
 import SliderEntry from '../../../components/snapCarousel/carousel/SliderEntry'
-import { ENTRIES1 } from '../../../utils/constants'
+import { ENTRIES1, TranSlationLanguage } from '../../../utils/constants'
 import { DetailScreens } from './DetailScreens'
+import { ServicesScreen } from './services-screens/ServicesScreen'
 const { width: viewportWidth } = Dimensions.get('window')
 
 function wp(percentage: any) {
@@ -17,7 +18,8 @@ const slideWidth = wp(75)
 const itemHorizontalMargin = wp(2)
 
 export interface ItemProps {
-  id: number, illustration: string
+  id: number
+  illustration: string
 }
 
 export const sliderWidth = viewportWidth
@@ -54,6 +56,7 @@ export const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>{TranSlationLanguage.Products_Title}</Text>
       <View style={{ height: scale(350) }}>
         <Carousel
           ref={_slider1Ref}
@@ -86,6 +89,7 @@ export const HomeScreen = () => {
         inactiveDotScale={0.6}
         carouselRef={_slider1Ref}
       />
+      <ServicesScreen />
       <DetailScreens visible={visible} onClose={onClose} item={item} />
     </View>
   )
@@ -94,7 +98,7 @@ export const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: VectorColor.blueLight,
+    backgroundColor: VectorColor.white,
   },
   slider: {
     marginTop: 15,
@@ -114,5 +118,12 @@ const styles = StyleSheet.create({
   },
   exampleContainerDark: {
     backgroundColor: VectorColor.black,
+  },
+  title: {
+    fontSize: scale(22),
+    fontWeight: 'bold',
+    color: VectorColor.black,
+    marginTop: scale(20),
+    marginLeft: scale(10),
   },
 })

@@ -5,7 +5,7 @@ import { RootSiblingParent } from "react-native-root-siblings";
 // React Native Paper
 import { Provider as PaperProvider } from "react-native-paper";
 import { Theme } from "./app/utils/Theme.tsx";
-
+console.disableYellowBox = true;
 const App = () => {
   return (
     <RootSiblingParent>

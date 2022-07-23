@@ -1,6 +1,6 @@
 import { useFocusEffect } from '@react-navigation/native'
 import React, { useCallback, useRef, useState } from 'react'
-import { Dimensions, Image, Platform, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { Dimensions, Platform, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { VectorColor } from '../../../components/color/VectorColor'
 import {
   FlexModal,
@@ -11,6 +11,7 @@ import { scale } from '../../../components/ScalingUtils'
 import { ItemProps, itemWidth, sliderWidth } from './HomeScreens'
 import SliderEntry from '../../../components/snapCarousel/carousel/SliderEntry'
 import Carousel from '../../../components/snapCarousel'
+import FastImage from 'react-native-fast-image'
 const { width } = Dimensions.get('window')
 interface PropsIems {
   itemPage: any[]
@@ -40,7 +41,7 @@ const ItemHomePage = ({ itemPage }: PropsIems) => {
       //   parallax={true}
       //   parallaxProps={parallaxProps}
       // />
-      <Image source={{uri: item?.illustration}} style={{ width: scale(300), height: scale(400) }} />
+      <FastImage source={{uri: item?.illustration}} style={{ width: scale(300), height: scale(400) }} />
     )
   }
 
