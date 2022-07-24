@@ -6,4 +6,5 @@ export interface RoutePage {
 
 export enum AppRoutes {
   HOME = 'HOME',
+  DETAIL = 'DETAIL',
 }

@@ -8,6 +8,7 @@ import { TranSlationLanguage } from '../../../utils/constants'
 import { StyleSheet, Text, View } from 'react-native'
 import { scale } from '../../../components/ScalingUtils'
 import { BottomNavigatorScreen } from './BottomNavigatorScreen'
+import { DetailItemScreens } from '../screens/DetailItemScreens'
 
 const Stack = createNativeStackNavigator<any>()
 
@@ -29,7 +30,17 @@ const HomePages = () => {
         ),
       }}
     />,
-  )
+  ),
+    arr.push(
+      <Stack.Screen
+        name={AppRoutes.DETAIL}
+        component={DetailItemScreens}
+        key={AppRoutes.DETAIL}
+        options={{
+          title: 'Chi tiết sản phẩm',
+        }}
+      />,
+    )
   return arr.filter((item) => item.key)
 }
 
@@ -43,6 +54,7 @@ const AppNavigator = (): React.ReactElement => {
             gestureEnabled: false,
             cardStyle: { backgroundColor: 'transparent' },
             headerTintColor: VectorColor.black,
+            headerBackTitleVisible: false,
           })}
         >
           {HomePages()}

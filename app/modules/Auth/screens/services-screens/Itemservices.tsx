@@ -1,14 +1,22 @@
-import { useFocusEffect } from '@react-navigation/native'
-import React from 'react'
-import { View, Text, StyleSheet, FlatList } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import React, { useCallback } from 'react'
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+} from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { VectorColor } from '../../../../components/color/VectorColor'
+import { AppRoutes } from '../../../../components/routes/AppRoutes'
 import { scale } from '../../../../components/ScalingUtils'
 
 interface ServicesItem {
   id: string
   name: string
   link: string
+  imgList: []
 }
 
 interface PropsItem {
@@ -17,24 +25,35 @@ interface PropsItem {
 
 interface ItemPropsValues {
   data: ServicesItem
+  navigate?: any
 }
 
-const Item = ({ data }: ItemPropsValues) => {
+const Item = ({ data, navigate }: ItemPropsValues) => {
+  const onChooseItem = useCallback(() => {
+    navigate(AppRoutes.DETAIL, { data })
+  }, [])
+
   return (
-    <View>
-      <FastImage source={{ uri: data.link }} style={styles.image} />
-      <Text
-        style={[styles.title, { fontWeight: 'normal', fontSize: scale(20), textAlign: 'center' }]}
-      >
-        {data.name}
-      </Text>
-    </View>
+    <TouchableOpacity onPress={onChooseItem}>
+      <>
+        <FastImage source={{ uri: data.link }} style={styles.image} />
+        <Text
+          style={[
+            styles.title,
+            { fontWeight: 'normal', fontSize: scale(20), textAlign: 'center' },
+          ]}
+        >
+          {data.name}
+        </Text>
+      </>
+    </TouchableOpacity>
   )
 }
 
 export const Itemservices = ({ data }: PropsItem) => {
   const { name, item } = data
-  
+  const { navigate } = useNavigation()
+
   return (
     <>
       <Text style={[styles.title, { marginHorizontal: scale(10) }]}>
@@ -43,7 +62,7 @@ export const Itemservices = ({ data }: PropsItem) => {
       <FlatList
         data={item}
         horizontal
-        renderItem={({ item }) => <Item data={item} />}
+        renderItem={({ item }) => <Item data={item} navigate={navigate} />}
         keyExtractor={(_, index) => String(index)}
       />
     </>
@@ -63,6 +82,6 @@ const styles = StyleSheet.create({
     height: scale(160),
     resizeMode: 'contain',
     marginHorizontal: scale(10),
-    borderRadius: scale(10)
+    borderRadius: scale(10),
   },
 })

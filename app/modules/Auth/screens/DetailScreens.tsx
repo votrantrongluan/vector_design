@@ -1,6 +1,12 @@
 import { useFocusEffect } from '@react-navigation/native'
 import React, { useCallback, useRef, useState } from 'react'
-import { Dimensions, Platform, StyleSheet, TouchableOpacity, View } from 'react-native'
+import {
+  Dimensions,
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 import { VectorColor } from '../../../components/color/VectorColor'
 import {
   FlexModal,
@@ -9,9 +15,11 @@ import {
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import { scale } from '../../../components/ScalingUtils'
 import { ItemProps, itemWidth, sliderWidth } from './HomeScreens'
-import SliderEntry from '../../../components/snapCarousel/carousel/SliderEntry'
+// import SliderEntry from '../../../components/snapCarousel/carousel/SliderEntry'
 import Carousel from '../../../components/snapCarousel'
 import FastImage from 'react-native-fast-image'
+// @ts-ignore
+import ImageZoom from 'react-native-image-pan-zoom'
 const { width } = Dimensions.get('window')
 interface PropsIems {
   itemPage: any[]
@@ -41,7 +49,17 @@ const ItemHomePage = ({ itemPage }: PropsIems) => {
       //   parallax={true}
       //   parallaxProps={parallaxProps}
       // />
-      <FastImage source={{uri: item?.illustration}} style={{ width: scale(300), height: scale(400) }} />
+      <ImageZoom
+        cropWidth={Dimensions.get('window').width}
+        cropHeight={Dimensions.get('window').height}
+        imageWidth={scale(300)}
+        imageHeight={scale(400)}
+      >
+        <FastImage
+          source={{ uri: item?.illustration }}
+          style={{ width: scale(300), height: scale(400) }}
+        />
+      </ImageZoom>
     )
   }
 
@@ -51,7 +69,9 @@ const ItemHomePage = ({ itemPage }: PropsIems) => {
         ref={_slider1Ref}
         data={listPictures}
         renderItem={_renderItem}
-        sliderWidth={Platform.OS === 'ios' ? sliderWidth : width * (200 / width)}
+        sliderWidth={
+          Platform.OS === 'ios' ? sliderWidth : width * (200 / width)
+        }
         itemWidth={Platform.OS === 'ios' ? itemWidth * 2 : itemWidth}
         hasParallaxImages={true}
         firstItem={1}

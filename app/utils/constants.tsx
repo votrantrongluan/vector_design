@@ -73,36 +73,66 @@ export const DataHome = [
         name: 'Architect A',
         link:
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-21.jpg',
+        imgList: [
+          'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-21.jpg',
+          'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-2.jpg.webp',
+          'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-3.jpg.webp',
+        ],
       },
       {
         id: '2',
         name: 'Architect B',
         link:
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-2.jpg.webp',
+        imgList: [
+          'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-21.jpg',
+          'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-2.jpg.webp',
+          'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-3.jpg.webp',
+        ],
       },
       {
         id: '3',
         name: 'Architect C',
         link:
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-3.jpg.webp',
+        imgList: [
+          'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-21.jpg',
+          'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-2.jpg.webp',
+          'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-3.jpg.webp',
+        ],
       },
       {
         id: '4',
         name: 'Architect D',
         link:
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-14.jpg.webp',
+        imgList: [
+          'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-21.jpg',
+          'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-2.jpg.webp',
+          'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-3.jpg.webp',
+        ],
       },
       {
         id: '5',
         name: 'Architect E',
         link:
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-13.jpg.webp',
+        imgList: [
+          'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-21.jpg',
+          'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-2.jpg.webp',
+          'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-3.jpg.webp',
+        ],
       },
       {
         id: '6',
         name: 'Architect F',
         link:
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-3.jpg.webp',
+        imgList: [
+          'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-21.jpg',
+          'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-2.jpg.webp',
+          'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-3.jpg.webp',
+        ],
       },
     ],
   },
