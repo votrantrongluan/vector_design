@@ -57,7 +57,7 @@ export const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{TranSlationLanguage.Products_Title}</Text>
-      <View style={{ height: scale(350) }}>
+      <View style={{ height: scale(300) }}>
         <Carousel
           ref={_slider1Ref}
           data={ENTRIES1}
@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
   },
   paginationContainer: {
     paddingVertical: 8,
+    marginTop: scale(40)
   },
   paginationDot: {
     width: 8,

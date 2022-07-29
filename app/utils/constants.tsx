@@ -1,3 +1,4 @@
+import { VectorColor } from '../components/color/VectorColor'
 import { scale } from '../components/ScalingUtils'
 
 export const ENTRIES1 = [
@@ -70,7 +71,7 @@ export const DataHome = [
     item: [
       {
         id: '1',
-        name: 'Architect A',
+        name: 'Minimalism - Tối Giản',
         link:
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-21.jpg',
         imgList: [
@@ -81,7 +82,7 @@ export const DataHome = [
       },
       {
         id: '2',
-        name: 'Architect B',
+        name: 'Địa Trung Hải',
         link:
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-2.jpg.webp',
         imgList: [
@@ -92,7 +93,7 @@ export const DataHome = [
       },
       {
         id: '3',
-        name: 'Architect C',
+        name: 'Hiện Đại',
         link:
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-3.jpg.webp',
         imgList: [
@@ -100,73 +101,35 @@ export const DataHome = [
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-2.jpg.webp',
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-3.jpg.webp',
         ],
-      },
-      {
-        id: '4',
-        name: 'Architect D',
-        link:
-          'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-14.jpg.webp',
-        imgList: [
-          'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-21.jpg',
-          'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-2.jpg.webp',
-          'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-3.jpg.webp',
-        ],
-      },
-      {
-        id: '5',
-        name: 'Architect E',
-        link:
-          'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-13.jpg.webp',
-        imgList: [
-          'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-21.jpg',
-          'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-2.jpg.webp',
-          'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-3.jpg.webp',
-        ],
-      },
-      {
-        id: '6',
-        name: 'Architect F',
-        link:
-          'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-3.jpg.webp',
-        imgList: [
-          'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-21.jpg',
-          'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-2.jpg.webp',
-          'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-3.jpg.webp',
-        ],
-      },
-    ],
+      }
+    ]
   },
   {
     name: 'Interior Design',
     item: [
       {
         id: '1',
-        name: 'Interior A',
+        name: 'Minimalism - Tối Giản',
         link: 'https://i.imgur.com/UPrs1EWl.jpg',
       },
       {
         id: '2',
-        name: 'Interior B',
+        name: 'Đồng Quê',
         link: 'https://i.imgur.com/UPrs1EWl.jpg',
       },
       {
         id: '3',
-        name: 'Interior C',
+        name: 'Rustic',
         link: 'https://i.imgur.com/UPrs1EWl.jpg',
       },
       {
         id: '4',
-        name: 'Interior D',
+        name: 'Indochin - Đông Dương',
         link: 'https://i.imgur.com/UPrs1EWl.jpg',
       },
       {
         id: '5',
-        name: 'Interior E',
-        link: 'https://i.imgur.com/UPrs1EWl.jpg',
-      },
-      {
-        id: '6',
-        name: 'Interior F',
+        name: 'Hiện Đại',
         link: 'https://i.imgur.com/UPrs1EWl.jpg',
       },
     ],
@@ -176,32 +139,17 @@ export const DataHome = [
     item: [
       {
         id: '1',
-        name: 'Drafts A',
+        name: 'Tối Giản',
         link: 'https://i.imgur.com/UPrs1EWl.jpg',
       },
       {
         id: '2',
-        name: 'Drafts B',
+        name: 'Hiện Đại',
         link: 'https://i.imgur.com/UPrs1EWl.jpg',
       },
       {
         id: '3',
-        name: 'Drafts C',
-        link: 'https://i.imgur.com/UPrs1EWl.jpg',
-      },
-      {
-        id: '4',
-        name: 'Drafts D',
-        link: 'https://i.imgur.com/UPrs1EWl.jpg',
-      },
-      {
-        id: '5',
-        name: 'Drafts E',
-        link: 'https://i.imgur.com/UPrs1EWl.jpg',
-      },
-      {
-        id: '6',
-        name: 'Drafts F',
+        name: 'Bán Cổ Điển',
         link: 'https://i.imgur.com/UPrs1EWl.jpg',
       },
     ],
@@ -211,45 +159,32 @@ export const DataHome = [
     item: [
       {
         id: '1',
-        name: '3Dprint A',
+        name: 'Con Người',
         link: 'https://i.imgur.com/UPrs1EWl.jpg',
       },
       {
         id: '2',
-        name: '3Dprint B',
-        link: 'https://i.imgur.com/UPrs1EWl.jpg',
-      },
-      {
-        id: '3',
-        name: '3Dprint C',
-        link: 'https://i.imgur.com/UPrs1EWl.jpg',
-      },
-      {
-        id: '4',
-        name: '3Dprint D',
-        link: 'https://i.imgur.com/UPrs1EWl.jpg',
-      },
-      {
-        id: '5',
-        name: '3Dprint E',
-        link: 'https://i.imgur.com/UPrs1EWl.jpg',
-      },
-      {
-        id: '6',
-        name: '3Dprint F',
+        name: 'Cảnh Quan',
         link: 'https://i.imgur.com/UPrs1EWl.jpg',
       },
     ],
   },
 ]
 
+export enum IndexIcon {
+  ZALO,
+  MAIL,
+  FB,
+  YT,
+}
+
 export const Tabs = [
   {
     key: 'zalo',
     icon: 'chat',
     label: 'Zalo',
-    barColor: '#388E3C',
-    pressColor: 'rgba(255, 255, 255, 0.16)',
+    barColor: VectorColor.white,
+    pressColor: VectorColor.greenLight,
     size: {
       width: scale(30),
       height: scale(30),
@@ -259,8 +194,8 @@ export const Tabs = [
     key: 'gmail',
     icon: 'mail',
     label: 'Gmail',
-    barColor: '#B71C1C',
-    pressColor: 'rgba(255, 255, 255, 0.16)',
+    barColor: VectorColor.white,
+    pressColor: VectorColor.orange,
     size: {
       width: scale(30),
       height: scale(30),
@@ -270,8 +205,8 @@ export const Tabs = [
     key: 'facebook',
     icon: 'facebook',
     label: 'Facebook',
-    barColor: '#E64A19',
-    pressColor: 'rgba(255, 255, 255, 0.16)',
+    barColor: VectorColor.white,
+    pressColor: VectorColor.blue,
     size: {
       width: scale(30),
       height: scale(30),
@@ -281,11 +216,25 @@ export const Tabs = [
     key: 'yt',
     icon: 'youtube',
     label: 'Youtube',
-    barColor: '#E64A69',
-    pressColor: 'rgba(255, 255, 255, 0.16)',
+    barColor: VectorColor.white,
+    pressColor: VectorColor.red,
     size: {
       width: scale(30),
       height: scale(30),
     },
   },
+]
+
+export enum TypeTabsDetail {
+  Overview = 'overview',
+  Detail = 'detail',
+  Offer = 'offer',
+  Quote = 'quote',
+}
+
+export const TabsDetail = [
+  { key: 'overview', title: 'Tổng Quan' },
+  { key: 'detail', title: 'Chi Tiết' },
+  { key: 'offer', title: 'Đề Xuất' },
+  { key: 'quote', title: 'Báo Giá' },
 ]

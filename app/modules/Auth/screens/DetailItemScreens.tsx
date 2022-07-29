@@ -33,21 +33,23 @@ export const DetailItemScreens = () => {
     }, []),
   )
 
-  const loadHandle = useCallback((i: number) => {}, [])
+  const loadHandle = useCallback((i: number) => { }, [])
 
   return (
-    <View style={styles.container}>
-      <Swiper style={styles.wrapper} showsButtons loop={false}>
-        {imageList?.map((item, i) => (
-          <Slide
-            loadHandle={loadHandle}
-            uri={item}
-            i={i}
-            key={i}
-            loaded={loadQueue[i]}
-          />
-        ))}
-      </Swiper>
+    <View style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <Swiper style={styles.wrapper} showsButtons loop={false}>
+          {imageList?.map((item, i) => (
+            <Slide
+              loadHandle={loadHandle}
+              uri={item}
+              i={i}
+              key={i}
+              loaded={loadQueue[i]}
+            />
+          ))}
+        </Swiper>
+      </View>
       <InfoDetailChoose />
     </View>
   )
