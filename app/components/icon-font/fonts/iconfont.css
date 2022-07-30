@@ -1,0 +1,587 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 1861974 */
+  src: url('iconfont.woff2?t=1651891944382') format('woff2'),
+       url('iconfont.woff?t=1651891944382') format('woff'),
+       url('iconfont.ttf?t=1651891944382') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.preview:before {
+  content: "\e668";
+}
+
+.export:before {
+  content: "\e667";
+}
+
+.instruction_add_24:before {
+  content: "\e663";
+}
+
+.arrow_right_24:before {
+  content: "\e662";
+}
+
+.engagement_topic:before {
+  content: "\e661";
+}
+
+.prospect_manage1:before {
+  content: "\e65e";
+}
+
+.prospect_manage:before {
+  content: "\e653";
+}
+
+.checkbox_checked:before {
+  content: "\e64d";
+}
+
+.checkbox_unchecked:before {
+  content: "\e64e";
+}
+
+.merge:before {
+  content: "\e64c";
+}
+
+.edit1:before {
+  content: "\e647";
+}
+
+.a-linechart:before {
+  content: "\e646";
+}
+
+.a-barchart:before {
+  content: "\e641";
+}
+
+.icon_customer:before {
+  content: "\e63c";
+}
+
+.radio1:before {
+  content: "\e637";
+}
+
+.toast_success:before {
+  content: "\e636";
+}
+
+.toast_warning:before {
+  content: "\e634";
+}
+
+.toast_error:before {
+  content: "\e630";
+}
+
+.a-training_inprogress:before {
+  content: "\e609";
+}
+
+.training_complete:before {
+  content: "\e608";
+}
+
+.popup_mandatorytraining:before {
+  content: "\e607";
+}
+
+.popup_traininghistory:before {
+  content: "\e604";
+}
+
+.addcustomer:before {
+  content: "\e6a2";
+}
+
+.whatsapp:before {
+  content: "\e601";
+}
+
+.sort:before {
+  content: "\e633";
+}
+
+.prusubmit:before {
+  content: "\e631";
+}
+
+.GIEB:before {
+  content: "\e632";
+}
+
+.calendar:before {
+  content: "\e6a1";
+}
+
+.bianzu10:before {
+  content: "\e62d";
+}
+
+.bianzu11:before {
+  content: "\e62e";
+}
+
+.filteractive:before {
+  content: "\e62f";
+}
+
+.send:before {
+  content: "\e62c";
+}
+
+.comment:before {
+  content: "\e629";
+}
+
+.fav:before {
+  content: "\e62a";
+}
+
+.bookmark:before {
+  content: "\e62b";
+}
+
+.news:before {
+  content: "\e6a0";
+}
+
+.EPAcheckpayment:before {
+  content: "\e618";
+}
+
+.EPAfps:before {
+  content: "\e61b";
+}
+
+.EPAbank:before {
+  content: "\e61c";
+}
+
+.EPAsavings:before {
+  content: "\e61d";
+}
+
+.EPAtelextransfer:before {
+  content: "\e627";
+}
+
+.EPApolicy:before {
+  content: "\e628";
+}
+
+.tip_urgent:before {
+  content: "\e602";
+}
+
+.report1:before {
+  content: "\e69f";
+}
+
+.management:before {
+  content: "\e69a";
+}
+
+.AMD:before {
+  content: "\e69b";
+}
+
+.Claim:before {
+  content: "\e69c";
+}
+
+.other:before {
+  content: "\e69d";
+}
+
+.underwriting:before {
+  content: "\e69e";
+}
+
+.stuff_login:before {
+  content: "\e617";
+}
+
+.interview:before {
+  content: "\e697";
+}
+
+.popup_search1:before {
+  content: "\e696";
+}
+
+.popup_cource:before {
+  content: "\e695";
+}
+
+.popup_expert:before {
+  content: "\e693";
+}
+
+.book:before {
+  content: "\e692";
+}
+
+.arrow_up:before {
+  content: "\e691";
+}
+
+.chat:before {
+  content: "\e690";
+}
+
+.message:before {
+  content: "\e68f";
+}
+
+.popup_close:before {
+  content: "\e68e";
+}
+
+.tabbar_saleskit_active:before {
+  content: "\e68c";
+}
+
+.tabbar_saleskit_normal:before {
+  content: "\e68d";
+}
+
+.instruction_info:before {
+  content: "\e68b";
+}
+
+.runner:before {
+  content: "\e68a";
+}
+
+.shortcut_card:before {
+  content: "\e687";
+}
+
+.shortcut_lead:before {
+  content: "\e688";
+}
+
+.shortcut_test:before {
+  content: "\e686";
+}
+
+.detail:before {
+  content: "\e685";
+}
+
+.hourglass:before {
+  content: "\e684";
+}
+
+.instruction_add:before {
+  content: "\e683";
+}
+
+.addmember:before {
+  content: "\e681";
+}
+
+.phonebook:before {
+  content: "\e682";
+}
+
+.qrcode:before {
+  content: "\e680";
+}
+
+.shortcut_cpd:before {
+  content: "\e67f";
+}
+
+.nav:before {
+  content: "\e67e";
+}
+
+.shortcut_scan:before {
+  content: "\e67d";
+}
+
+.shortcut_library:before {
+  content: "\e67c";
+}
+
+.link:before {
+  content: "\e679";
+}
+
+.contact1:before {
+  content: "\e67a";
+}
+
+.photo:before {
+  content: "\e675";
+}
+
+.contact:before {
+  content: "\e672";
+}
+
+.edit:before {
+  content: "\e671";
+}
+
+.report:before {
+  content: "\e670";
+}
+
+.tabbar_recuit_normal1:before {
+  content: "\e665";
+}
+
+.tabbar_recuit_active1:before {
+  content: "\e666";
+}
+
+.tab_training_active:before {
+  content: "\e664";
+}
+
+.info_locate:before {
+  content: "\e660";
+}
+
+.info_time:before {
+  content: "\e65f";
+}
+
+.tabbar_cal_normal:before {
+  content: "\e60c";
+}
+
+.tabbar_cal_active:before {
+  content: "\e610";
+}
+
+.tabbar_home_active:before {
+  content: "\e612";
+}
+
+.tabbar_earning_active:before {
+  content: "\e616";
+}
+
+.tabbar_earning_normal:before {
+  content: "\e619";
+}
+
+.tabbar_home_normal:before {
+  content: "\e61a";
+}
+
+.tabbar_me_normal:before {
+  content: "\e620";
+}
+
+.tabbar_me_active:before {
+  content: "\e621";
+}
+
+.tabbar_incentive_active:before {
+  content: "\e622";
+}
+
+.tabbar_incentive_normal:before {
+  content: "\e623";
+}
+
+.tabbar_policy_active:before {
+  content: "\e624";
+}
+
+.tabbar_taining_normal:before {
+  content: "\e625";
+}
+
+.tabbar_policy_normal:before {
+  content: "\e626";
+}
+
+.notification:before {
+  content: "\e65d";
+}
+
+.recruit_popup:before {
+  content: "\e65c";
+}
+
+.leads_popup:before {
+  content: "\e65b";
+}
+
+.train_popup:before {
+  content: "\e65a";
+}
+
+.policy_popup:before {
+  content: "\e659";
+}
+
+.per_popup:before {
+  content: "\e658";
+}
+
+.system_popup:before {
+  content: "\e657";
+}
+
+.scan:before {
+  content: "\e656";
+}
+
+.filter:before {
+  content: "\e655";
+}
+
+.more:before {
+  content: "\e654";
+}
+
+.close:before {
+  content: "\e652";
+}
+
+.arrow_back:before {
+  content: "\e651";
+}
+
+.add:before {
+  content: "\e650";
+}
+
+.refresh:before {
+  content: "\e64f";
+}
+
+.bluetooth:before {
+  content: "\e64b";
+}
+
+.headphone:before {
+  content: "\e64a";
+}
+
+.video_selected:before {
+  content: "\e649";
+}
+
+.video:before {
+  content: "\e648";
+}
+
+.share:before {
+  content: "\e645";
+}
+
+.reschedule:before {
+  content: "\e644";
+}
+
+.mute_selected:before {
+  content: "\e643";
+}
+
+.mute:before {
+  content: "\e642";
+}
+
+.leave:before {
+  content: "\e640";
+}
+
+.expansion:before {
+  content: "\e63f";
+}
+
+.device:before {
+  content: "\e63e";
+}
+
+.date:before {
+  content: "\e63d";
+}
+
+.attendee:before {
+  content: "\e63b";
+}
+
+.attend:before {
+  content: "\e63a";
+}
+
+.popup_arrow:before {
+  content: "\e639";
+}
+
+.menumore:before {
+  content: "\e638";
+}
+
+.time:before {
+  content: "\e635";
+}
+
+.done:before {
+  content: "\e61f";
+}
+
+.language:before {
+  content: "\e61e";
+}
+
+.girl:before {
+  content: "\e615";
+}
+
+.boy:before {
+  content: "\e614";
+}
+
+.arrow:before {
+  content: "\e613";
+}
+
+.label_selected:before {
+  content: "\e611";
+}
+
+.text_delete:before {
+  content: "\e60f";
+}
+
+.radio_selected:before {
+  content: "\e60e";
+}
+
+.radio:before {
+  content: "\e60d";
+}
+
+.search:before {
+  content: "\e60b";
+}
+
+.delete:before {
+  content: "\e60a";
+}
+
+.arrow_down:before {
+  content: "\e606";
+}
+

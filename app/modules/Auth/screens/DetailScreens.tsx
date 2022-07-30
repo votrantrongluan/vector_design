@@ -88,6 +88,7 @@ const ItemHomePage = ({ itemPage }: PropsIems) => {
         autoplayInterval={4000}
         layout={'stack'}
         layoutCardOffset={`18`}
+        removeClippedSubviews={false}
       />
     </View>
   )

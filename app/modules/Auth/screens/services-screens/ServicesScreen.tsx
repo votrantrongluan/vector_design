@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FlatList } from 'react-native'
 import { DataHome } from '../../../../utils/constants'
 import { Itemservices } from './Itemservices'
 
 export const ServicesScreen = () => {
+
   return (
     <>
       <FlatList

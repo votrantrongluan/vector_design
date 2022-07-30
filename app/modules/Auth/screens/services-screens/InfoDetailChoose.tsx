@@ -1,24 +1,26 @@
 import React, { Fragment } from 'react';
-import { View, Text, StyleSheet, useWindowDimensions, Dimensions } from 'react-native';
-import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { TabView, TabBar } from 'react-native-tab-view';
 import { VectorColor } from '../../../../components/color/VectorColor';
+import { ItemDetailInfo } from '../../../../components/ItemDetailInfo';
 import { scale } from '../../../../components/ScalingUtils';
-import { TabsDetail, TypeTabsDetail } from '../../../../utils/constants';
+import { DataInfoDetail, DataInfoOffer, DataInfoOverview, DataInfoQuote, TabsDetail, TypeTabsDetail } from '../../../../utils/constants';
+import { QuoteTabs } from '../QuoteTabs';
 
 const { width } = Dimensions.get('window')
 
 const OverviewRoute = (jumpTo: any) => (
-    <View style={{ flex: 1, backgroundColor: '#ff4081' }} />
+    <ItemDetailInfo dataList={DataInfoOverview} />
 );
 
 const DetailRoute = (jumpTo: any) => (
-    <View style={{ flex: 1, backgroundColor: '#673ab7' }} />
+    <ItemDetailInfo dataList={DataInfoDetail} />
 );
 const OfferRoute = (jumpTo: any) => (
-    <View style={{ flex: 1, backgroundColor: 'green' }} />
+    <ItemDetailInfo dataList={DataInfoOffer} />
 );
 const QuoteRoute = (jumpTo: any) => (
-    <View style={{ flex: 1, backgroundColor: 'red' }} />
+    <QuoteTabs data={DataInfoQuote} />
 );
 
 const renderScene = ({ route, jumpTo }: any) => {

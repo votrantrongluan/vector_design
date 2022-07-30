@@ -1,8 +1,10 @@
-import { useFocusEffect, useRoute } from '@react-navigation/native'
+import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native'
 import React, { useCallback, useState } from 'react'
-import { View, StyleSheet, Dimensions } from 'react-native'
+import { View, StyleSheet, Dimensions, Text } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import Swiper from 'react-native-swiper'
+import { VectorColor } from '../../../components/color/VectorColor'
+import { HeaderBar } from '../../../components/header/HeaderBar'
 import { scale } from '../../../components/ScalingUtils'
 import { InfoDetailChoose } from './services-screens/InfoDetailChoose'
 const { width } = Dimensions.get('window')
@@ -26,6 +28,7 @@ export const DetailItemScreens = () => {
   const route = useRoute()
   const { data } = route?.params as any
   const [imageList, setImageList] = useState<any[]>([])
+  const navigation = useNavigation()
 
   useFocusEffect(
     React.useCallback(() => {
@@ -38,7 +41,13 @@ export const DetailItemScreens = () => {
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.container}>
-        <Swiper style={styles.wrapper} showsButtons loop={false}>
+        <Swiper style={styles.wrapper}
+          prevButton={
+            <Text style={styles.buttonText}>‹</Text>
+          }
+          nextButton={<Text style={styles.buttonText}>›</Text>}
+          activeDotStyle={{ backgroundColor: VectorColor.blueLight }}
+          showsButtons loop={false}>
           {imageList?.map((item, i) => (
             <Slide
               loadHandle={loadHandle}
@@ -58,6 +67,10 @@ export const DetailItemScreens = () => {
 const styles = StyleSheet.create({
   container: { height: scale(300), width },
   wrapper: {},
+  buttonText: {
+    fontSize: 50,
+    color: VectorColor.white
+  },
   slide: {
     flex: 1,
     justifyContent: 'center',

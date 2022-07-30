@@ -12,25 +12,32 @@ import { VectorColor } from '../../../../components/color/VectorColor'
 import { AppRoutes } from '../../../../components/routes/AppRoutes'
 import { scale } from '../../../../components/ScalingUtils'
 
-interface ServicesItem {
-  id: string
-  name: string
-  link: string
-  imgList: []
-}
-
 interface PropsItem {
-  data: { name: string; item: ServicesItem[] }
+  data: {
+    name: string;
+    item: {
+      id: string;
+      name: string;
+      link: string;
+      imgList: string[];
+    }[];
+  }
 }
 
 interface ItemPropsValues {
-  data: ServicesItem
+  data: {
+    id: string;
+    name: string;
+    link: string;
+    imgList: string[];
+  }
   navigate?: any
+  name: string
 }
 
-const Item = ({ data, navigate }: ItemPropsValues) => {
+const Item = ({ data, navigate, name }: ItemPropsValues) => {
   const onChooseItem = useCallback(() => {
-    navigate(AppRoutes.DETAIL, { data })
+    navigate(AppRoutes.DETAIL, { data, nameInfo: name })
   }, [])
 
   return (
@@ -52,17 +59,19 @@ const Item = ({ data, navigate }: ItemPropsValues) => {
 
 export const Itemservices = ({ data }: PropsItem) => {
   const { name, item } = data
-  const { navigate } = useNavigation()
+  const { navigate }: any = useNavigation()
 
   return (
     <>
-      <Text style={[styles.title, { marginHorizontal: scale(10) }]}>
-        {name}
-      </Text>
+      <View style={styles.container}>
+        <Text style={styles.title}>
+          {name}
+        </Text>
+      </View>
       <FlatList
         data={item}
         horizontal
-        renderItem={({ item }) => <Item data={item} navigate={navigate} />}
+        renderItem={({ item }) => <Item data={item} navigate={navigate} name={name} />}
         keyExtractor={(_, index) => String(index)}
       />
     </>
@@ -70,6 +79,17 @@ export const Itemservices = ({ data }: PropsItem) => {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    marginHorizontal: scale(10),
+    justifyContent: 'space-between',
+  },
+  titleView: {
+    color: VectorColor.blue,
+    fontSize: scale(16),
+    fontWeight: 'normal',
+    alignSelf: 'center'
+  },
   title: {
     fontSize: scale(22),
     fontWeight: 'bold',

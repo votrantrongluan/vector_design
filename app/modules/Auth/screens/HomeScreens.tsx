@@ -30,10 +30,10 @@ export const HomeScreen = () => {
   const [slider1ActiveSlide, setSlider1ActiveSlide] = useState<number>(0)
   const [item, setItem] = useState<ItemProps[]>([])
 
-  const handleEvents = useCallback((value: any) => {
-    setVisible(true)
-    setItem(value?.item)
-  }, [])
+  // const handleEvents = useCallback((value: any) => {
+  //   setVisible(true)
+  //   setItem(value?.item)
+  // }, [])
 
   const _renderItemWithParallax = (
     { item, index }: any,
@@ -45,7 +45,7 @@ export const HomeScreen = () => {
         even={(index + 1) % 2 === 0}
         parallax={true}
         parallaxProps={parallaxProps}
-        _handleClick={() => handleEvents(item)}
+        // _handleClick={() => handleEvents(item)}
       />
     )
   }
@@ -76,6 +76,7 @@ export const HomeScreen = () => {
           autoplayDelay={500}
           autoplayInterval={4000}
           onSnapToItem={setSlider1ActiveSlide}
+          removeClippedSubviews={false}
         />
       </View>
       <Pagination

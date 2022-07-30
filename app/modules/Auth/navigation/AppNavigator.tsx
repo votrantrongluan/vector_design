@@ -9,6 +9,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import { scale } from '../../../components/ScalingUtils'
 import { BottomNavigatorScreen } from './BottomNavigatorScreen'
 import { DetailItemScreens } from '../screens/DetailItemScreens'
+import { ViewDetailScreen } from '../screens/services-screens/ViewDetailScreen'
 
 const Stack = createNativeStackNavigator<any>()
 
@@ -36,9 +37,7 @@ const HomePages = () => {
         name={AppRoutes.DETAIL}
         component={DetailItemScreens}
         key={AppRoutes.DETAIL}
-        options={{
-          title: 'Chi tiết sản phẩm',
-        }}
+        options={({ route }) => ({ title: route?.params?.nameInfo })}
       />,
     )
   return arr.filter((item) => item.key)

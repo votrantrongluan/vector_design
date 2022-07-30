@@ -1,13 +1,13 @@
 import React, { useCallback, useState } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { Alert, Linking, StyleSheet, View } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import BottomNavigation, {
-  FullTab,
+  FullTab, TabConfig,
 } from 'react-native-material-bottom-navigation'
 import Icon from 'react-native-vector-icons/Entypo'
 import { VectorColor } from '../../../components/color/VectorColor'
 import { scale } from '../../../components/ScalingUtils'
-import { IndexIcon, Tabs } from '../../../utils/constants'
+import { IndexIcon, linkFB, linkGmail, linkYoutube, linkZalo, Tabs, TypeIndexIcon, validEmail } from '../../../utils/constants'
 
 export const BottomNavigatorScreen = () => {
   const [activeTab, setActiveTab] = useState<any>(null)
@@ -52,9 +52,40 @@ export const BottomNavigatorScreen = () => {
     />
   )
 
+  const onLink = React.useCallback(async (url: string) => {
+    const supported = await Linking.canOpenURL(url);
+
+    if (supported) {
+      await Linking.openURL(`${validEmail.test(url) ? 'mailto:' : url}`);
+    } else {
+      Alert.alert(`Don't know how to open this URL: ${url}`);
+    }
+  }, [])
+
+  const handlePress = useCallback(async (activeTab: TabConfig) => {
+    setActiveTab(activeTab)
+    switch (activeTab?.key) {
+      case TypeIndexIcon.ZALO:
+        onLink(linkZalo)
+        break;
+      case TypeIndexIcon.MAIL:
+        onLink(linkGmail)
+        break;
+      case TypeIndexIcon.FB:
+        onLink(linkFB)
+        break;
+      case TypeIndexIcon.YT:
+        onLink(linkYoutube)
+        break;
+      default:
+        onLink(linkYoutube)
+        break;
+    }
+  }, []);
+
   return (
     <BottomNavigation
-      onTabPress={(activeTab) => setActiveTab(activeTab)}
+      onTabPress={(activeTab) => handlePress(activeTab)}
       renderTab={renderTab}
       tabs={Tabs}
     />
