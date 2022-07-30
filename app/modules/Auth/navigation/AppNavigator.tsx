@@ -9,7 +9,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import { scale } from '../../../components/ScalingUtils'
 import { BottomNavigatorScreen } from './BottomNavigatorScreen'
 import { DetailItemScreens } from '../screens/DetailItemScreens'
-import { ViewDetailScreen } from '../screens/services-screens/ViewDetailScreen'
+import { HomeNavigator } from '../screens/HomeNavigator'
 
 const Stack = createNativeStackNavigator<any>()
 
@@ -18,18 +18,9 @@ const HomePages = () => {
   arr.push(
     <Stack.Screen
       name={AppRoutes.HOME}
-      component={HomeScreen}
+      component={HomeNavigator}
       key={AppRoutes.HOME}
-      options={{
-        headerTitle: () => (
-          <View style={styles.container}>
-            <Text style={styles.titleHeader}>
-              {TranSlationLanguage.Home_Title}
-            </Text>
-            <Text style={styles.titleBottom}>T2 - 8:00 - 17:00</Text>
-          </View>
-        ),
-      }}
+      options={{ gestureEnabled: false, headerShown: false }}
     />,
   ),
     arr.push(
@@ -58,6 +49,7 @@ const AppNavigator = (): React.ReactElement => {
         >
           {HomePages()}
         </Stack.Navigator>
+
       </NavigationContainer>
       <BottomNavigatorScreen />
     </>
