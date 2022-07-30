@@ -33,7 +33,7 @@ export const HomeNavigator = () => {
                     </TouchableOpacity>
                 )
             }} />
-                <Drawer.Screen name="Liên hệ" component={InfoContract} options={{
+                <Drawer.Screen name="Đối tác" component={InfoContract} options={{
                 headerLeft: () => (
                     <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginLeft: scale(4) }}>
                         <Ionicons name='chevron-back' size={scale(30)} color={VectorColor.black} />
