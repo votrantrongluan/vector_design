@@ -20,6 +20,7 @@ interface PropsItem {
       name: string;
       link: string;
       imgList: string[];
+      type: string
     }[];
   }
 }
@@ -30,6 +31,7 @@ interface ItemPropsValues {
     name: string;
     link: string;
     imgList: string[];
+    type: string
   }
   navigate?: any
   name: string

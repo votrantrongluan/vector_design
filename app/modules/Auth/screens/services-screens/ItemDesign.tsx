@@ -2,11 +2,14 @@ import React, { Fragment, useCallback } from "react"
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import { Divider } from "react-native-elements";
 import { VectorColor } from "../../../../components/color/VectorColor";
+import { FormInfo } from "../../../../components/form/FormInfo";
 import { scale } from "../../../../components/ScalingUtils";
+import { TypeDesign } from "./ItemConstructuion";
 
 interface PropsItem {
     dataList: {
         title: string;
+        type: string,
         dataDesign: {
             id: string;
             name: string;
@@ -19,7 +22,7 @@ interface PropsItem {
 }
 
 export const ItemDesign = ({ dataList }: PropsItem) => {
-    const { dataDesign } = dataList
+    const { dataDesign, type } = dataList
 
     const checkLine = useCallback((index: number) => {
         if (index % 2 === 0) {
@@ -38,7 +41,7 @@ export const ItemDesign = ({ dataList }: PropsItem) => {
                             <Text style={style.title}>{item.name}</Text>
                             {item?.description?.map((_) => {
                                 return (
-                                    <Text key={_.id} style={style.titleDes}>{`- ${_.title}`}</Text>
+                                    item.id === TypeDesign.KEY ? <FormInfo type={type} /> : <Text key={_.id} style={style.titleDes}>{`- ${_.title}`}</Text>
                                 )
                             })}
                         </View>

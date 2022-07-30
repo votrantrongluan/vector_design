@@ -79,6 +79,7 @@ export const DataHome = [
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-2.jpg.webp',
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-3.jpg.webp',
         ],
+        type: 'TypeA'
       },
       {
         id: '2',
@@ -90,6 +91,7 @@ export const DataHome = [
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-2.jpg.webp',
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-3.jpg.webp',
         ],
+        type: 'TypeB'
       },
       {
         id: '3',
@@ -101,6 +103,7 @@ export const DataHome = [
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-2.jpg.webp',
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-3.jpg.webp',
         ],
+        type: 'TypeB'
       }, {
         id: '4',
         name: 'Minimalism - Tối Giản',
@@ -111,6 +114,7 @@ export const DataHome = [
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-2.jpg.webp',
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-3.jpg.webp',
         ],
+        type: 'TypeA'
       },
       {
         id: '5',
@@ -122,6 +126,7 @@ export const DataHome = [
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-2.jpg.webp',
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-3.jpg.webp',
         ],
+        type: 'TypeB'
       },
       {
         id: '6',
@@ -133,6 +138,7 @@ export const DataHome = [
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-2.jpg.webp',
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-3.jpg.webp',
         ],
+        type: 'TypeB'
       },
     ]
   },
@@ -148,6 +154,7 @@ export const DataHome = [
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-2.jpg.webp',
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-3.jpg.webp',
         ],
+        type: 'TypeA'
       },
       {
         id: '2',
@@ -158,6 +165,7 @@ export const DataHome = [
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-2.jpg.webp',
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-3.jpg.webp',
         ],
+        type: 'TypeC'
       },
       {
         id: '3',
@@ -168,6 +176,7 @@ export const DataHome = [
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-2.jpg.webp',
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-3.jpg.webp',
         ],
+        type: 'TypeC'
       },
       {
         id: '4',
@@ -178,6 +187,7 @@ export const DataHome = [
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-2.jpg.webp',
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-3.jpg.webp',
         ],
+        type: 'TypeC'
       },
       {
         id: '5',
@@ -188,6 +198,7 @@ export const DataHome = [
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-2.jpg.webp',
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-3.jpg.webp',
         ],
+        type: 'TypeB'
       },
     ],
   },
@@ -203,6 +214,7 @@ export const DataHome = [
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-2.jpg.webp',
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-3.jpg.webp',
         ],
+        type: 'TypeA'
       },
       {
         id: '2',
@@ -213,6 +225,7 @@ export const DataHome = [
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-2.jpg.webp',
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-3.jpg.webp',
         ],
+        type: 'TypeB'
       },
       {
         id: '3',
@@ -223,6 +236,7 @@ export const DataHome = [
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-2.jpg.webp',
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-3.jpg.webp',
         ],
+        type: 'TypeC'
       },
     ],
   },
@@ -238,6 +252,7 @@ export const DataHome = [
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-2.jpg.webp',
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-3.jpg.webp',
         ],
+        type: 'TypeA'
       },
       {
         id: '2',
@@ -248,6 +263,7 @@ export const DataHome = [
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-2.jpg.webp',
           'https://hoaphatmiennam.vn/wp-content/uploads/2020/10/anh-noi-that-dep-3.jpg.webp',
         ],
+        type: 'TypeA'
       },
     ],
   },
@@ -436,9 +452,15 @@ export const DataInfoOffer = {
   ]
 }
 
+export enum TypeInfo {
+  TYPEA = 'TypeA',
+  TYPEB = 'TypeB',
+  TYPEC = 'TypeC',
+}
 
 export const DataInfoQuote = {
   title: 'Chi tiet san pham',
+  type: 'TypeA',
   dataDesign: [
     {
       id: '1', name: 'Thông tin', description: [
@@ -467,7 +489,7 @@ export const DataInfoQuote = {
           title: `Dự toán trên tính cho cấu tạo một phòng ngủ cơ bản, đang thực hiện tại AHDesign - Bếp Xinh. Giá dự toán trên có thể thay đổi theo sự lựa chọn các loại vật liệu, thiết bị, phụ kiện theo thực tế thi công. Để có thông tin chính xác quý khách vui lòng gọi đến số máy miễn phí 1800.68.59 hoặc đường dây nóng 0922.185.185 - 0926.185.185 để được tư vấn và giải đáp những thắc mắc.`
         },
       ]
-    }
+    },
   ],
   dataConstruction: [
     {
@@ -479,7 +501,15 @@ export const DataInfoQuote = {
       ]
     },
     {
-      id: '2', name: 'Ghi chú tính giá', description: [
+      id: '2', name: 'Báo giá', description: [
+        {
+          id: '1a',
+          title: ''
+        },
+      ]
+    },
+    {
+      id: '3', name: 'Ghi chú tính giá', description: [
         {
           id: '1a',
           title: `Dự toán trên tính cho cấu tạo một phòng ngủ cơ bản, đang thực hiện tại AHDesign - Bếp Xinh. Giá dự toán trên có thể thay đổi theo sự lựa chọn các loại vật liệu, thiết bị, phụ kiện theo thực tế thi công. Để có thông tin chính xác quý khách vui lòng gọi đến số máy miễn phí 1800.68.59 hoặc đường dây nóng 0922.185.185 - 0926.185.185 để được tư vấn và giải đáp những thắc mắc.`
@@ -504,3 +534,17 @@ export const TabsQuote = [
   { key: 'design', title: 'Thiết kế' },
   { key: 'construction', title: 'Thi công' },
 ]
+
+export enum TypeCatelogies {
+  VILA = 'villa'
+}
+
+export const Categories = [
+  { name: 'Căn hộ 1 phòng ngủ', value: '1bedroom', num: 45000 },
+  { name: 'Căn hộ 2 phòng ngủ', value: '2bedroom', num: 45000 },
+  { name: 'Căn hộ 3 phòng ngủ', value: '3bedroom', num: 45000 },
+  { name: 'Penthouse', value: 'penthouse', num: 45000 },
+  { name: 'Nhà phố', value: 'townhouse', num: 45000 },
+  { name: 'Biệt thự', value: 'villa', num: 50000 },
+  { name: 'Nội thất văn phòng', value: 'furniture', num: 45000 },
+];
