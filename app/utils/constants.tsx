@@ -277,7 +277,7 @@ export enum IndexIcon {
 }
 
 export enum TypeIndexIcon {
-  ZALO = 'zalo',
+  ZALO = 'camera',
   MAIL = 'gmail',
   FB = 'facebook',
   YT = 'yt',
@@ -286,9 +286,9 @@ export enum TypeIndexIcon {
 
 export const Tabs = [
   {
-    key: 'zalo',
-    icon: 'chat',
-    label: 'Zalo',
+    key: 'camera',
+    icon: 'camera',
+    label: 'camera',
     barColor: VectorColor.white,
     pressColor: VectorColor.greenLight,
     size: {

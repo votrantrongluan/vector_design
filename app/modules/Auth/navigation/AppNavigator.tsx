@@ -10,6 +10,8 @@ import { scale } from '../../../components/ScalingUtils'
 import { BottomNavigatorScreen } from './BottomNavigatorScreen'
 import { DetailItemScreens } from '../screens/DetailItemScreens'
 import { HomeNavigator } from '../screens/HomeNavigator'
+import IntroduceScreen from '../screens/TodoList/introduce/screens/IntroduceScreen'
+import SigninScreen from '../screens/TodoList/login/screens/SigninScreen'
 
 const Stack = createNativeStackNavigator<any>()
 
@@ -23,14 +25,30 @@ const HomePages = () => {
       options={{ gestureEnabled: false, headerShown: false }}
     />,
   ),
-    arr.push(
-      <Stack.Screen
-        name={AppRoutes.DETAIL}
-        component={DetailItemScreens}
-        key={AppRoutes.DETAIL}
-        options={({ route }) => ({ title: route?.params?.nameInfo })}
-      />,
-    )
+  arr.push(
+    <Stack.Screen
+      name={AppRoutes.INTRODUCE}
+      component={IntroduceScreen}
+      key={AppRoutes.INTRODUCE}
+      options={{ gestureEnabled: false, headerShown: false }}
+    />,
+  ),
+  arr.push(
+    <Stack.Screen
+      name={AppRoutes.DETAIL}
+      component={DetailItemScreens}
+      key={AppRoutes.DETAIL}
+      options={({ route }) => ({ title: route?.params?.nameInfo })}
+    />,
+  )
+  arr.push(
+    <Stack.Screen
+      name={AppRoutes.SIGNIN}
+      component={SigninScreen}
+      key={AppRoutes.SIGNIN}
+      options={({ route }) => ({ title: route?.params?.nameInfo })}
+    />,
+  )
   return arr.filter((item) => item.key)
 }
 
@@ -49,9 +67,7 @@ const AppNavigator = (): React.ReactElement => {
         >
           {HomePages()}
         </Stack.Navigator>
-
       </NavigationContainer>
-      <BottomNavigatorScreen />
     </>
   )
 }
