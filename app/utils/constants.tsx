@@ -283,12 +283,15 @@ export enum TypeIndexIcon {
   YT = 'yt',
 }
 
+export enum KEY_STORAGE { 
+  KEY_IMAGE = 'KEY_IMAGE'
+}
 
 export const Tabs = [
   {
     key: 'camera',
     icon: 'camera',
-    label: 'camera',
+    label: 'Khảo sát',
     barColor: VectorColor.white,
     pressColor: VectorColor.greenLight,
     size: {

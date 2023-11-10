@@ -50,9 +50,9 @@
 		13B07FAE1A68108700A75B9A /* vectordesign */ = {
 			isa = PBXGroup;
 			children = (
+				0FEE2CAA2AFC974C00E336A7 /* GoogleService-Info.plist */,
 				BB2F792B24A3F905000567C9 /* Supporting */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
-				0FEE2CAA2AFC974C00E336A7 /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,

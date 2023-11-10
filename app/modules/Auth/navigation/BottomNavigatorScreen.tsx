@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import BottomNavigation, {
   FullTab,
@@ -8,7 +8,10 @@ import ImageCrop from 'react-native-image-crop-picker'
 import LottieView from 'lottie-react-native'
 import Icon from 'react-native-vector-icons/Entypo'
 import { VectorColor } from '../../../components/color/VectorColor'
-import * as ImagePicker from 'expo-image-picker'
+import * as ImagePickerExpo from 'expo-image-picker'
+import ImagePicker from 'react-native-image-crop-picker'
+import moment from 'moment'
+// import { ImagePicker } from 'expo-image-multiple-picker'
 import {
   FlexModal,
   FlexModalHandler,
@@ -16,6 +19,7 @@ import {
 import { scale } from '../../../components/ScalingUtils'
 import {
   IndexIcon,
+  KEY_STORAGE,
   // linkFB,
   // linkGmail,
   // linkYoutube,
@@ -24,12 +28,21 @@ import {
   TypeIndexIcon,
   // validEmail,
 } from '../../../utils/constants'
+import {
+  getAsyncStorage,
+  setAsyncStorage,
+} from '../../../components/AsyncStorage'
+import { useNavigation } from '@react-navigation/native'
+import { AppRoutes } from '../../../components/routes/AppRoutes'
+import AsyncStorage from '@react-native-community/async-storage'
 
 export const BottomNavigatorScreen = () => {
   const [activeTab, setActiveTab] = useState<any>(null)
   const modalRef = useRef<FlexModalHandler | null>(null)
   const lottieRef = useRef<LottieView | null>(null)
   const galeryRef = useRef<LottieView | null>(null)
+  const videoRef = useRef<LottieView | null>(null)
+  const { navigate }: any = useNavigation()
 
   const handleSetColor = (key: string) => {
     switch (key) {
@@ -95,6 +108,12 @@ export const BottomNavigatorScreen = () => {
           galeryRef.current.play(0, 300)
         }
       })
+
+      setTimeout(() => {
+        if (videoRef.current) {
+          videoRef.current.play(0, 300)
+        }
+      })
     }
   }, [])
 
@@ -104,14 +123,8 @@ export const BottomNavigatorScreen = () => {
     }
   }, [])
 
-  const onLink = React.useCallback(async (url: string) => {
+  const onLink = React.useCallback((url: string) => {
     handleOpen()
-    // const supported = await Linking.canOpenURL(url)
-    // if (supported) {
-    //   await Linking.openURL(`${validEmail.test(url) ? 'mailto:' : url}`)
-    // } else {
-    //   Alert.alert(`Don't know how to open this URL: ${url}`)
-    // }
   }, [])
 
   const handlePress = useCallback(async (activeTab: TabConfig) => {
@@ -135,34 +148,45 @@ export const BottomNavigatorScreen = () => {
     }
   }, [])
 
-  const onCamera = useCallback(async () => {
-    let result: any = await ImagePicker.launchCameraAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: false,
+  const onCamera = async () => {
+    ImagePicker.openCamera({
+      cropping: false,
+      multiple: true,
       aspect: [4, 3],
-      quality: 1,
+      quality: 0,
+      base64: true
+    }).then((response: any) => {
+      var currentDate = moment().format('DD/MM/YYYY')
+      try {
+        AsyncStorage.getItem(KEY_STORAGE.KEY_IMAGE, (_, result: any) => {
+          if (result !== null) {
+            console.log('Data Found', result)
+            var newIds = Object.values(JSON.parse(result))?.concat({
+              date: currentDate,
+              uri: response?.path,
+            })
+            AsyncStorage.setItem(KEY_STORAGE.KEY_IMAGE, JSON.stringify(newIds))
+          } else {
+            console.log('Data Not Found')
+            AsyncStorage.setItem(
+              KEY_STORAGE.KEY_IMAGE,
+              JSON.stringify(response),
+            )
+          }
+        })
+      } catch (error) {
+        return error
+      }
     })
-
-    console.log(result)
-
-    if (!result?.canceled) {
-      // setImage(result.assets[0].uri);
-      console.log(
-        '🚀 ~ file: BottomNavigatorScreen.tsx:184 ~ onGalery ~ result:',
-        result,
-      )
-    }
-  }, [])
+  }
 
   const onVideo = useCallback(async () => {
-    let result: any = await ImagePicker.launchCameraAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Videos,
+    let result: any = await ImagePickerExpo.launchCameraAsync({
+      mediaTypes: ImagePickerExpo.MediaTypeOptions.Videos,
       allowsEditing: false,
       aspect: [4, 3],
       quality: 1,
     })
-
-    console.log(result)
 
     if (!result?.canceled) {
       // setImage(result.assets[0].uri);
@@ -172,6 +196,11 @@ export const BottomNavigatorScreen = () => {
       )
     }
   }, [])
+
+  const onGalery = async () => {
+    navigate(AppRoutes.GALARY)
+    handleClose()
+  }
 
   return (
     <>
@@ -186,7 +215,8 @@ export const BottomNavigatorScreen = () => {
         ref={modalRef}
         animationIn={'slideInUp'}
         animationOut={'slideOutDown'}
-        modalStyle={{ padding: 0, margin: 0 }}
+        modalStyle={{ padding: 0, margin: 0, justifyContent: 'flex-end' }}
+        onBackdropPress={handleClose}
       >
         <View style={styles.container}>
           <TouchableOpacity onPress={handleClose}>
@@ -197,7 +227,7 @@ export const BottomNavigatorScreen = () => {
               <View style={styles.containerLine}>
                 <LottieView
                   ref={lottieRef}
-                  source={require('../assets/camera.json')}
+                  source={require('../assets/camera1.json')}
                   style={styles.picture}
                   loop={false}
                   autoPlay={false}
@@ -210,13 +240,23 @@ export const BottomNavigatorScreen = () => {
                 <LottieView
                   ref={galeryRef}
                   source={require('../assets/galery.json')}
-                  style={[
-                    styles.picture,
-                  ]}
+                  style={[styles.picture]}
                   loop={false}
                   autoPlay={false}
                 />
                 <Text style={styles.title}>Video</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={onGalery}>
+              <View style={styles.containerLine}>
+                <LottieView
+                  ref={videoRef}
+                  source={require('../assets/video.json')}
+                  style={[styles.picture]}
+                  loop={false}
+                  autoPlay={false}
+                />
+                <Text style={styles.title}>Galery</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -229,13 +269,11 @@ export const BottomNavigatorScreen = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    height: '14%',
     justifyContent: 'flex-start',
     alignItems: 'center',
     paddingVertical: 20,
   },
   containerModal: {
-    flex: 1,
     backgroundColor: VectorColor.transparent,
     justifyContent: 'flex-end',
     margin: 0,
@@ -259,7 +297,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginTop: 20,
-    width: '80%',
+    width: '100%',
   },
   containerLine: {
     flexDirection: 'row',

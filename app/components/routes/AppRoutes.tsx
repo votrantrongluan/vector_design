@@ -9,4 +9,5 @@ export enum AppRoutes {
   DETAIL = 'DETAIL',
   INTRODUCE = 'INTRODUCE',
   SIGNIN = 'SIGNIN',
+  GALARY = 'GALARY',
 }

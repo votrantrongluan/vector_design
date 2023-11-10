@@ -12,6 +12,7 @@ import { DetailItemScreens } from '../screens/DetailItemScreens'
 import { HomeNavigator } from '../screens/HomeNavigator'
 import IntroduceScreen from '../screens/TodoList/introduce/screens/IntroduceScreen'
 import SigninScreen from '../screens/TodoList/login/screens/SigninScreen'
+import { GaleryScreen } from '../screens/galery/GaleryScreen'
 
 const Stack = createNativeStackNavigator<any>()
 
@@ -46,6 +47,14 @@ const HomePages = () => {
       name={AppRoutes.SIGNIN}
       component={SigninScreen}
       key={AppRoutes.SIGNIN}
+      options={({ route }) => ({ title: route?.params?.nameInfo })}
+    />,
+  )
+  arr.push(
+    <Stack.Screen
+      name={AppRoutes.GALARY}
+      component={GaleryScreen}
+      key={AppRoutes.GALARY}
       options={({ route }) => ({ title: route?.params?.nameInfo })}
     />,
   )
