@@ -148,13 +148,21 @@ export const BottomNavigatorScreen = () => {
     }
   }, [])
 
+  useEffect(() => {
+    AsyncStorage.getItem(KEY_STORAGE.KEY_IMAGE).then((response: any) => {
+      if (!JSON.parse(response)) {
+        AsyncStorage.setItem(KEY_STORAGE.KEY_IMAGE, JSON.stringify([]))
+      }
+    })
+  }, [])
+
   const onCamera = async () => {
     ImagePicker.openCamera({
       cropping: false,
       multiple: true,
       aspect: [4, 3],
       quality: 0,
-      base64: true
+      base64: true,
     }).then((response: any) => {
       var currentDate = moment().format('DD/MM/YYYY')
       try {
@@ -163,7 +171,7 @@ export const BottomNavigatorScreen = () => {
             console.log('Data Found', result)
             var newIds = Object.values(JSON.parse(result))?.concat({
               date: currentDate,
-              uri: response?.path,
+              uri: response[0] ? response[0]?.path : response?.path,
             })
             AsyncStorage.setItem(KEY_STORAGE.KEY_IMAGE, JSON.stringify(newIds))
           } else {
@@ -181,19 +189,52 @@ export const BottomNavigatorScreen = () => {
   }
 
   const onVideo = useCallback(async () => {
-    let result: any = await ImagePickerExpo.launchCameraAsync({
+ 
+    // var currentDate = moment().format('DD/MM/YYYY')
+    // try {
+    //   AsyncStorage.getItem(KEY_STORAGE.KEY_IMAGE, (_, result: any) => {
+    //     if (result !== null) {
+    //       console.log('Data Found', result)
+    //       var newIds = Object.values(JSON.parse(result))?.concat({
+    //         date: currentDate,
+    //         uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    //       })
+    //       AsyncStorage.setItem(KEY_STORAGE.KEY_IMAGE, JSON.stringify(newIds))
+    //     } else {
+    //     }
+    //   })
+    // } catch (error) {
+    //   return error
+    // }
+    let response: any = await ImagePickerExpo.launchCameraAsync({
       mediaTypes: ImagePickerExpo.MediaTypeOptions.Videos,
       allowsEditing: false,
       aspect: [4, 3],
       quality: 1,
     })
 
-    if (!result?.canceled) {
-      // setImage(result.assets[0].uri);
-      console.log(
-        '🚀 ~ file: BottomNavigatorScreen.tsx:184 ~ onGalery ~ result:',
-        result,
-      )
+    if (!response?.canceled) {
+      var currentDate = moment().format('DD/MM/YYYY')
+      try {
+        AsyncStorage.getItem(KEY_STORAGE.KEY_IMAGE, (_, result: any) => {
+          if (result !== null) {
+            console.log('Data Found', result)
+            var newIds = Object.values(JSON.parse(result))?.concat({
+              date: currentDate,
+              uri: response[0] ? response[0]?.uri : response?.uri,
+            })
+            AsyncStorage.setItem(KEY_STORAGE.KEY_IMAGE, JSON.stringify(newIds))
+          } else {
+            console.log('Data Not Found')
+            AsyncStorage.setItem(
+              KEY_STORAGE.KEY_IMAGE,
+              JSON.stringify(response),
+            )
+          }
+        })
+      } catch (error) {
+        return error
+      }
     }
   }, [])
 
