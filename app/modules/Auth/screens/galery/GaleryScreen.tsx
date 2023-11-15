@@ -10,11 +10,12 @@ import {
   TouchableOpacity,
   LayoutAnimation,
   Platform,
+  Animated,
+  Image,
 } from 'react-native'
 //@ts-ignore
 import Video from 'react-native-video'
 import Share from 'react-native-share'
-import ImageViewer from 'react-native-image-zoom-viewer'
 import FastImage from 'react-native-fast-image'
 import { getAsyncStorage } from '../../../../components/AsyncStorage'
 import { VectorColor } from '../../../../components/color/VectorColor'
@@ -22,43 +23,22 @@ import {
   FlexModal,
   FlexModalHandler,
 } from '../../../../components/modal/FlexModal'
-import { scale } from '../../../../components/ScalingUtils'
+import { scale as scaleSize } from '../../../../components/ScalingUtils'
 import { KEY_STORAGE } from '../../../../utils/constants'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import FontAwesome6 from 'react-native-vector-icons/AntDesign'
 import { CheckBox } from 'react-native-elements'
+import {
+  GestureHandlerRootView,
+  PinchGestureHandler,
+  State,
+} from 'react-native-gesture-handler'
 const { width, height } = Dimensions.get('window')
-const keyPath = 'file://'
+export const keyPath = 'file://'
 const image =
   'https://img.freepik.com/free-vector/video-production-landing-page_52683-76086.jpg?w=1480&t=st=1699847237~exp=1699847837~hmac=f64b9ed7c23a8d5d215f9b8b5d8e7a5d90e09004ead5a5aa7ef91d10e9c0005e'
-const FileType = {
-  PDF: 'pdf',
-  IMG: [
-    'bmp',
-    'jpg',
-    'jpeg',
-    'png',
-    'tif',
-    'gif',
-    'pcx',
-    'tga',
-    'exif',
-    'fpx',
-    'svg',
-    'psd',
-    'cdr',
-    'pcd',
-    'dxf',
-    'ufo',
-    'eps',
-    'ai',
-    'raw',
-    'WMF',
-    'webp',
-  ],
-}
 
 export const GaleryScreen = () => {
   const [list, setList] = useState<any>([])
@@ -68,9 +48,6 @@ export const GaleryScreen = () => {
   const [isSelected, setSelection] = useState<string[]>([])
   const webviewRef = useRef<any>(null)
   const [webHtml, setWebHtml] = useState('')
-  const INJECTEDJAVASCRIPT = {
-    injectedJavaScript: `const meta = document.createElement('meta'); meta.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=1'); meta.setAttribute('name', 'viewport'); document.getElementsByTagName('head')[0].appendChild(meta); var style = document.createElement('style');style.innerHTML = '::-webkit-scrollbar {display: none;}';document.head.appendChild(style);`,
-  }
 
   useEffect(() => {
     setWebHtml(uriView)
@@ -95,10 +72,6 @@ export const GaleryScreen = () => {
   useFocusEffect(
     React.useCallback(() => {
       getAsyncStorage(KEY_STORAGE.KEY_IMAGE).then(async (item: any) => {
-        console.log(
-          '🚀 ~ file: GaleryScreen.tsx:100 ~ getAsyncStorage ~ item:',
-          item,
-        )
         let newDirectory = Object.values(
           JSON.parse(item).reduce((acc: any, item: any) => {
             if (!acc[item.date])
@@ -143,10 +116,10 @@ export const GaleryScreen = () => {
         <Text
           style={{
             color: 'black',
-            fontSize: scale(17),
-            marginBottom: scale(6),
+            fontSize: scaleSize(17),
+            marginBottom: scaleSize(6),
             fontWeight: 'bold',
-            marginLeft: scale(40),
+            marginLeft: scaleSize(40),
           }}
         >
           {item?.date}
@@ -173,19 +146,19 @@ export const GaleryScreen = () => {
                         source={{ uri: image }}
                         style={{
                           width: width / 3,
-                          height: scale(130),
-                          marginHorizontal: scale(2),
-                          marginVertical: scale(3),
+                          height: scaleSize(130),
+                          marginHorizontal: scaleSize(2),
+                          marginVertical: scaleSize(3),
                         }}
                       />
                       <FontAwesome6
                         name="playcircleo"
-                        size={scale(40)}
+                        size={scaleSize(40)}
                         color={VectorColor.red}
                         style={{
                           position: 'absolute',
                           alignSelf: 'center',
-                          top: scale(50),
+                          top: scaleSize(50),
                         }}
                       />
                     </>
@@ -194,9 +167,9 @@ export const GaleryScreen = () => {
                       source={{ uri: validateName('file://', item) }}
                       style={{
                         width: width / 3,
-                        height: scale(130),
-                        marginHorizontal: scale(2),
-                        marginVertical: scale(3),
+                        height: scaleSize(130),
+                        marginHorizontal: scaleSize(2),
+                        marginVertical: scaleSize(3),
                       }}
                     />
                   )}
@@ -231,7 +204,7 @@ export const GaleryScreen = () => {
           backgroundColor: 'white',
         }}
       >
-        <Text style={{ fontSize: scale(17), color: 'black' }}>
+        <Text style={{ fontSize: scaleSize(17), color: 'black' }}>
           Chưa có hình ảnh hoặc video
         </Text>
       </View>
@@ -271,6 +244,28 @@ export const GaleryScreen = () => {
     })
   }
 
+  const scale = new Animated.Value(1)
+
+  const onPinchEvent = Animated.event(
+    [
+      {
+        nativeEvent: { scale: scale },
+      },
+    ],
+    {
+      useNativeDriver: true,
+    },
+  )
+
+  const onPinchStateChange = (event: any) => {
+    if (event.nativeEvent.oldState === State.ACTIVE) {
+      Animated.spring(scale, {
+        toValue: 1,
+        useNativeDriver: true,
+      }).start()
+    }
+  }
+
   return (
     <>
       {showShare && (
@@ -278,7 +273,7 @@ export const GaleryScreen = () => {
           style={{ position: 'absolute', zIndex: 2, right: 10, top: 10 }}
           name="close"
           color={VectorColor.black}
-          size={scale(30)}
+          size={scaleSize(30)}
           onPress={() => {
             setShare(false)
             setSelection([])
@@ -293,7 +288,7 @@ export const GaleryScreen = () => {
         }}
       >
         <FlatList
-          style={{ marginTop: scale(10) }}
+          style={{ marginTop: scaleSize(10) }}
           renderItem={({ item }) => {
             return <Item item={item} />
           }}
@@ -302,21 +297,21 @@ export const GaleryScreen = () => {
         />
 
         <FlexModal
-          containerStyle={styles.containerImage}
+          containerStyle={[styles.containerImage, { margin: 0, padding: 0 }]}
           ref={modalImageRef}
-          modalStyle={{ padding: 0, margin: 0, height: 100 }}
+          modalStyle={{ padding: 0, margin: 0 }}
           animationIn={'zoomIn'}
           animationOut={'zoomOut'}
         >
           <View style={styles.containerImageRow}>
             <Ionicons
               name={'arrow-back'}
-              size={scale(30)}
+              size={scaleSize(30)}
               style={{
-                left: scale(0),
+                left: scaleSize(10),
                 position: 'absolute',
                 zIndex: 99,
-                top: Platform.OS === 'ios' ? scale(40) : 10,
+                top: Platform.OS === 'ios' ? scaleSize(40) : 10,
               }}
               color={VectorColor.white}
               onPress={handleClose}
@@ -327,27 +322,37 @@ export const GaleryScreen = () => {
                 style={styles.backgroundVideo}
               />
             ) : (
-              <ImageViewer
-                imageUrls={[{ url: validateName('file://', uriView) || '' }]}
-                index={0}
-                renderIndicator={() => {
-                  return <></>
-                }}
-              />
+              <GestureHandlerRootView>
+                <PinchGestureHandler
+                  onGestureEvent={onPinchEvent}
+                  onHandlerStateChange={onPinchStateChange}
+                >
+                  <Animated.Image
+                    source={{ uri: validateName('file://', uriView) }}
+                    style={{
+                      width,
+                      height,
+                      // aspectRatio: 0.7,
+                      transform: [{ scale: scale }],
+                    }}
+                    resizeMode='cover'
+                  />
+                </PinchGestureHandler>
+              </GestureHandlerRootView>
             )}
           </View>
         </FlexModal>
         {showShare && (
           <View
             style={{
-              paddingVertical: scale(10),
-              paddingHorizontal: scale(40),
+              paddingVertical: scaleSize(10),
+              paddingHorizontal: scaleSize(40),
               backgroundColor: VectorColor.white,
               position: 'absolute',
               zIndex: 1,
               bottom: 0,
-              margin: scale(20),
-              borderRadius: scale(10),
+              margin: scaleSize(20),
+              borderRadius: scaleSize(10),
               flexDirection: 'row',
               alignSelf: 'center',
               borderWidth: 0.2,
@@ -360,8 +365,8 @@ export const GaleryScreen = () => {
               style={{
                 justifyContent: 'center',
                 alignItems: 'center',
-                paddingHorizontal: scale(10),
-                marginHorizontal: scale(8),
+                paddingHorizontal: scaleSize(10),
+                marginHorizontal: scaleSize(8),
               }}
             >
               <>
@@ -372,9 +377,9 @@ export const GaleryScreen = () => {
                 />
                 <Text
                   style={{
-                    fontSize: scale(14),
+                    fontSize: scaleSize(14),
                     color: VectorColor.black,
-                    marginTop: scale(4),
+                    marginTop: scaleSize(4),
                   }}
                 >
                   Gửi
@@ -385,17 +390,17 @@ export const GaleryScreen = () => {
               style={{
                 justifyContent: 'center',
                 alignItems: 'center',
-                paddingHorizontal: scale(10),
-                marginHorizontal: scale(8),
+                paddingHorizontal: scaleSize(10),
+                marginHorizontal: scaleSize(8),
               }}
               onPress={handleDelete}
             >
               <AntDesign name="delete" size={18} color={VectorColor.black} />
               <Text
                 style={{
-                  fontSize: scale(14),
+                  fontSize: scaleSize(14),
                   color: VectorColor.black,
-                  marginTop: scale(4),
+                  marginTop: scaleSize(4),
                 }}
               >
                 Xóa
@@ -432,8 +437,8 @@ const styles = StyleSheet.create({
   checkbox: {
     position: 'absolute',
     zIndex: 1,
-    right: scale(-14),
-    bottom: scale(-8),
+    right: scaleSize(-14),
+    bottom: scaleSize(-8),
   },
   backgroundVideo: {
     position: 'absolute',

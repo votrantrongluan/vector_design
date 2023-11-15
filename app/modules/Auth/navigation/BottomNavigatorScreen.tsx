@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import {
   ActivityIndicator,
   Dimensions,
+  FlatList,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -11,12 +12,10 @@ import BottomNavigation, {
   FullTab,
   TabConfig,
 } from 'react-native-material-bottom-navigation'
-import ImageCrop from 'react-native-image-crop-picker'
 import LottieView from 'lottie-react-native'
 import Icon from 'react-native-vector-icons/Entypo'
 import { VectorColor } from '../../../components/color/VectorColor'
 import * as ImagePickerExpo from 'expo-image-picker'
-import ImagePicker from 'react-native-image-crop-picker'
 import { Camera, useCameraDevices } from 'react-native-vision-camera'
 import moment from 'moment'
 // import { ImagePicker } from 'expo-image-multiple-picker'
@@ -36,18 +35,21 @@ import {
   TypeIndexIcon,
   // validEmail,
 } from '../../../utils/constants'
-import {
-  getAsyncStorage,
-  setAsyncStorage,
-} from '../../../components/AsyncStorage'
 import { useNavigation } from '@react-navigation/native'
 import { AppRoutes } from '../../../components/routes/AppRoutes'
 import AsyncStorage from '@react-native-community/async-storage'
 import Entypo from 'react-native-vector-icons/Entypo'
+import Feather from 'react-native-vector-icons/Feather'
+import FastImage from 'react-native-fast-image'
+import { keyPath } from '../screens/galery/GaleryScreen'
+import EvilIcons from 'react-native-vector-icons/EvilIcons'
 const { width, height } = Dimensions.get('window')
 
 export const BottomNavigatorScreen = () => {
   const [activeTab, setActiveTab] = useState<any>(null)
+  const [checkFlag, setCheckFlag] = useState<boolean>(false)
+  const [showViewList, setShowViewList] = useState<boolean>(false)
+  const [listPicture, setPictures] = useState<string[] | null>([''])
   const modalRef = useRef<FlexModalHandler | null>(null)
   const modalCameraRef = useRef<FlexModalHandler | null>(null)
   const lottieRef = useRef<LottieView | null>(null)
@@ -104,6 +106,7 @@ export const BottomNavigatorScreen = () => {
 
   const handleOpen = useCallback(() => {
     if (modalRef.current) {
+      setPictures([])
       modalRef.current.open({
         title: '',
         message: '',
@@ -187,35 +190,19 @@ export const BottomNavigatorScreen = () => {
     setTimeout(() => {
       handleCameraOpen()
     }, 1000)
-    // ImagePicker.openCamera({
-    //   cropping: false,
-    //   multiple: true,
-    //   aspect: [4, 3],
-    //   quality: 0,
-    //   base64: true,
-    // }).then((response: any) => {
-    //   var currentDate = moment().format('DD/MM/YYYY')
-    //   try {
-    //     AsyncStorage.getItem(KEY_STORAGE.KEY_IMAGE, (_, result: any) => {
-    //       if (result !== null) {
-    //         console.log('Data Found', result)
-    //         var newIds = Object.values(JSON.parse(result))?.concat({
-    //           date: currentDate,
-    //           uri: response[0] ? response[0]?.path : response?.path,
-    //         })
-    //         AsyncStorage.setItem(KEY_STORAGE.KEY_IMAGE, JSON.stringify(newIds))
-    //       } else {
-    //         console.log('Data Not Found')
-    //         AsyncStorage.setItem(
-    //           KEY_STORAGE.KEY_IMAGE,
-    //           JSON.stringify(response),
-    //         )
-    //       }
-    //     })
-    //   } catch (error) {
-    //     return error
-    //   }
-    // })
+  }
+
+  function validateName(name?: any, value?: string) {
+    var isValidName = true
+    if (
+      /[!@#$%^&*(),.?":{}|<>]/g.test(name) ||
+      !/^[A-Z]/.test(name) ||
+      /\d+/g.test(name)
+    ) {
+      isValidName = false
+    }
+    if (!isValidName) return keyPath + value
+    else return value
   }
 
   const onVideo = useCallback(async () => {
@@ -247,14 +234,12 @@ export const BottomNavigatorScreen = () => {
       try {
         AsyncStorage.getItem(KEY_STORAGE.KEY_IMAGE, (_, result: any) => {
           if (result !== null) {
-            console.log('Data Found', result)
             var newIds = Object.values(JSON.parse(result))?.concat({
               date: currentDate,
               uri: response[0] ? response[0]?.uri : response?.uri,
             })
             AsyncStorage.setItem(KEY_STORAGE.KEY_IMAGE, JSON.stringify(newIds))
           } else {
-            console.log('Data Not Found')
             AsyncStorage.setItem(
               KEY_STORAGE.KEY_IMAGE,
               JSON.stringify(response),
@@ -285,49 +270,158 @@ export const BottomNavigatorScreen = () => {
   const cameraDevice = devices.back
   const cameraRef = useRef<Camera>(null)
 
+  const renderListImageView = () => {
+    return (
+      <>
+        <EvilIcons
+          style={{ position: 'absolute', zIndex: 2, right: 10, top: 10 }}
+          name="close"
+          color={VectorColor.white}
+          size={scale(30)}
+          onPress={() => {
+            setShowViewList(false)
+          }}
+        />
+        <FlatList
+          data={listPicture}
+          style={{
+            backgroundColor: 'black',
+            paddingHorizontal: scale(2),
+            paddingVertical: scale(10),
+          }}
+          renderItem={({ item }) => {
+            return (
+              <FastImage
+                source={{ uri: validateName('file://', item) }}
+                style={{
+                  width: width / 3,
+                  height: scale(130),
+                  marginHorizontal: scale(2),
+                  marginVertical: scale(3),
+                }}
+              />
+            )
+          }}
+          horizontal={false}
+          numColumns={3}
+          keyExtractor={(_, index) => index.toString()}
+        />
+      </>
+    )
+  }
+
   const renderDetectorContent = () => {
     if (cameraDevice && cameraPermission === 'authorized') {
       return (
-        <View style={{ width, height }}>
-          <Camera
-            ref={cameraRef}
-            style={{ flex: 1 }}
-            device={cameraDevice}
-            isActive={true}
-            photo={true}
-          />
-          <TouchableOpacity
-            style={{ position: 'absolute', zIndex: 9, bottom: 20, alignSelf :'center', }}
-            onPress={async () => {
-              if (cameraRef?.current) {
-                const response = await cameraRef.current.takePhoto({})
-                var currentDate = moment().format('DD/MM/YYYY')
-                try {
-                  AsyncStorage.getItem(KEY_STORAGE.KEY_IMAGE, (_, result: any) => {
-                    if (result !== null) {
-                      console.log('Data Found', result)
-                      var newIds = Object.values(JSON.parse(result))?.concat({
-                        date: currentDate,
-                        uri: response?.path,
-                      })
-                      AsyncStorage.setItem(KEY_STORAGE.KEY_IMAGE, JSON.stringify(newIds))
-                    } else {
-                      console.log('Data Not Found')
-                      AsyncStorage.setItem(
-                        KEY_STORAGE.KEY_IMAGE,
-                        JSON.stringify(response),
-                      )
+        <>
+          <View style={{ width, height }}>
+            {showViewList ? (
+              renderListImageView()
+            ) : (
+              <>
+                <Camera
+                  ref={cameraRef}
+                  style={{ flex: 1 }}
+                  device={cameraDevice}
+                  isActive={true}
+                  photo={true}
+                />
+                <TouchableOpacity
+                  style={{
+                    position: 'absolute',
+                    bottom: 20,
+                    left: 29,
+                    zIndex: 9,
+                  }}
+                  onPress={() => {
+                    setShowViewList(true)
+                  }}
+                >
+                  <FastImage
+                    source={{
+                      uri: validateName(
+                        'file://',
+                        listPicture?.[listPicture?.length - 1],
+                      ),
+                    }}
+                    style={{ width: 60, height: 60, borderRadius: 5 }}
+                    resizeMode={FastImage.resizeMode.cover}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{
+                    position: 'absolute',
+                    zIndex: 9,
+                    bottom: 20,
+                    alignSelf: 'center',
+                  }}
+                  onPress={async () => {
+                    if (cameraRef?.current) {
+                      setCheckFlag(true)
+                      const response = await cameraRef.current.takePhoto({})
+                      var currentDate = moment().format('DD/MM/YYYY')
+                      try {
+                        AsyncStorage.getItem(
+                          KEY_STORAGE.KEY_IMAGE,
+                          (_, result: any) => {
+                            if (result !== null) {
+                              var newIds = Object.values(
+                                JSON.parse(result),
+                              )?.concat({
+                                date: currentDate,
+                                uri: response?.path,
+                              })
+                              AsyncStorage.setItem(
+                                KEY_STORAGE.KEY_IMAGE,
+                                JSON.stringify(newIds),
+                              )
+                              setPictures(
+                                (prev) => prev && [...prev, response?.path],
+                              )
+                            } else {
+                              AsyncStorage.setItem(
+                                KEY_STORAGE.KEY_IMAGE,
+                                JSON.stringify(response),
+                              )
+                            }
+                          },
+                        )
+                      } catch (error) {
+                        return error
+                      }
                     }
-                  })
-                } catch (error) {
-                  return error
-                }
-              }
-            }}
-          >
-            <Entypo name="circle" size={scale(60)} color={VectorColor.white} />
-          </TouchableOpacity>
-        </View>
+                  }}
+                >
+                  <Entypo
+                    name="circle"
+                    size={scale(60)}
+                    color={VectorColor.white}
+                  />
+                </TouchableOpacity>
+                {checkFlag && (
+                  <TouchableOpacity
+                    style={{
+                      position: 'absolute',
+                      zIndex: 9,
+                      bottom: 20,
+                      right: 29,
+                    }}
+                    onPress={() => {
+                      setCheckFlag(false)
+                      handleCameraClose()
+                    }}
+                  >
+                    <Feather
+                      name="check"
+                      color={VectorColor.white}
+                      size={scale(34)}
+                    />
+                  </TouchableOpacity>
+                )}
+              </>
+            )}
+          </View>
+        </>
       )
     }
     return <ActivityIndicator size="large" color="#1C6758" />
@@ -360,49 +454,51 @@ export const BottomNavigatorScreen = () => {
         modalStyle={{ padding: 0, margin: 0, justifyContent: 'flex-end' }}
         onBackdropPress={handleClose}
       >
-        <View style={styles.container}>
-          <TouchableOpacity onPress={handleClose}>
-            <View style={styles.containerView} />
-          </TouchableOpacity>
-          <View style={styles.containerGroup}>
-            <TouchableOpacity onPress={onCamera}>
-              <View style={styles.containerLine}>
-                <LottieView
-                  ref={lottieRef}
-                  source={require('../assets/camera1.json')}
-                  style={styles.picture}
-                  loop={false}
-                  autoPlay={false}
-                />
-                <Text style={styles.title}>Camera</Text>
-              </View>
+        <>
+          <View style={styles.container}>
+            <TouchableOpacity onPress={handleClose}>
+              <View style={styles.containerView} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={onVideo}>
-              <View style={styles.containerLine}>
-                <LottieView
-                  ref={galeryRef}
-                  source={require('../assets/galery.json')}
-                  style={[styles.picture]}
-                  loop={false}
-                  autoPlay={false}
-                />
-                <Text style={styles.title}>Video</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={onGalery}>
-              <View style={styles.containerLine}>
-                <LottieView
-                  ref={videoRef}
-                  source={require('../assets/video.json')}
-                  style={[styles.picture]}
-                  loop={false}
-                  autoPlay={false}
-                />
-                <Text style={styles.title}>Galery</Text>
-              </View>
-            </TouchableOpacity>
+            <View style={styles.containerGroup}>
+              <TouchableOpacity onPress={onCamera}>
+                <View style={styles.containerLine}>
+                  <LottieView
+                    ref={lottieRef}
+                    source={require('../assets/camera1.json')}
+                    style={styles.picture}
+                    loop={false}
+                    autoPlay={false}
+                  />
+                  <Text style={styles.title}>Camera</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={onVideo}>
+                <View style={styles.containerLine}>
+                  <LottieView
+                    ref={galeryRef}
+                    source={require('../assets/galery.json')}
+                    style={[styles.picture]}
+                    loop={false}
+                    autoPlay={false}
+                  />
+                  <Text style={styles.title}>Video</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={onGalery}>
+                <View style={styles.containerLine}>
+                  <LottieView
+                    ref={videoRef}
+                    source={require('../assets/video.json')}
+                    style={[styles.picture]}
+                    loop={false}
+                    autoPlay={false}
+                  />
+                  <Text style={styles.title}>Galery</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
+        </>
       </FlexModal>
     </>
   )
