@@ -9,10 +9,8 @@ import {
   Text,
   TouchableOpacity,
   LayoutAnimation,
-  Linking,
-  Alert,
+  Platform,
 } from 'react-native'
-import { WebView } from 'react-native-webview'
 //@ts-ignore
 import Video from 'react-native-video'
 import Share from 'react-native-share'
@@ -31,8 +29,8 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import FontAwesome6 from 'react-native-vector-icons/AntDesign'
 import { CheckBox } from 'react-native-elements'
-import SharePopup, { ShareFiles } from '../../../../components/share-popup'
 const { width, height } = Dimensions.get('window')
+const keyPath = 'file://'
 const image =
   'https://img.freepik.com/free-vector/video-production-landing-page_52683-76086.jpg?w=1480&t=st=1699847237~exp=1699847837~hmac=f64b9ed7c23a8d5d215f9b8b5d8e7a5d90e09004ead5a5aa7ef91d10e9c0005e'
 const FileType = {
@@ -97,6 +95,10 @@ export const GaleryScreen = () => {
   useFocusEffect(
     React.useCallback(() => {
       getAsyncStorage(KEY_STORAGE.KEY_IMAGE).then(async (item: any) => {
+        console.log(
+          '🚀 ~ file: GaleryScreen.tsx:100 ~ getAsyncStorage ~ item:',
+          item,
+        )
         let newDirectory = Object.values(
           JSON.parse(item).reduce((acc: any, item: any) => {
             if (!acc[item.date])
@@ -120,6 +122,19 @@ export const GaleryScreen = () => {
     if (res_check?.length > 0) {
       return setSelection(res_response)
     }
+  }
+
+  function validateName(name?: any, value?: string) {
+    var isValidName = true
+    if (
+      /[!@#$%^&*(),.?":{}|<>]/g.test(name) ||
+      !/^[A-Z]/.test(name) ||
+      /\d+/g.test(name)
+    ) {
+      isValidName = false
+    }
+    if (!isValidName) return keyPath + value
+    else return value
   }
 
   const Item = ({ item }: any) => {
@@ -176,7 +191,7 @@ export const GaleryScreen = () => {
                     </>
                   ) : (
                     <FastImage
-                      source={{ uri: item }}
+                      source={{ uri: validateName('file://', item) }}
                       style={{
                         width: width / 3,
                         height: scale(130),
@@ -235,9 +250,9 @@ export const GaleryScreen = () => {
 
   const handleDelete = () => {
     AsyncStorage.getItem(KEY_STORAGE.KEY_IMAGE).then((response?: any) => {
-      const res = JSON.parse(response).filter((e: any) => {
-        return isSelected.find((_) => _ !== e?.uri)
-      })
+      const res = JSON.parse(response).filter(
+        (e: any) => !isSelected.includes(e?.uri),
+      )
       AsyncStorage.setItem(KEY_STORAGE.KEY_IMAGE, JSON.stringify(res))
       let newDirectory = Object.values(
         res.reduce((acc: any, item: any) => {
@@ -254,29 +269,6 @@ export const GaleryScreen = () => {
       setShare(false)
       setSelection([])
     })
-  }
-
-  const handleSpecialFileExt = (url: string) => {
-    let fileType: string = url.replace(/.+\./, '')
-    fileType = fileType.toLocaleLowerCase()
-    let renderredContent
-    if (FileType.IMG.includes(fileType)) {
-      renderredContent = {
-        baseUrl: url,
-        html: `<img width="100%" src="${url}" />`,
-      }
-    } else if (fileType === 'mp4') {
-      renderredContent = {
-        baseUrl: url,
-        html: `<video controls preload="metadata" width="100%" height="100%"><source src="${url}#t=0.1" type="video/mp4"></video>`,
-      }
-    } else {
-      renderredContent = {
-        uri: url || '#',
-        method: 'GET',
-      }
-    }
-    return renderredContent
   }
 
   return (
@@ -324,7 +316,7 @@ export const GaleryScreen = () => {
                 left: scale(0),
                 position: 'absolute',
                 zIndex: 99,
-                top: scale(40),
+                top: Platform.OS === 'ios' ? scale(40) : 10,
               }}
               color={VectorColor.white}
               onPress={handleClose}
@@ -334,33 +326,9 @@ export const GaleryScreen = () => {
                 source={{ uri: uriView }} // Can be a URL or a local file.
                 style={styles.backgroundVideo}
               />
-              // <WebView
-              //   style={styles.backgroundVideo}
-              //   originWhitelist={['*']}
-              //   ref={(ref: WebView) => {
-              //     webviewRef.current = ref
-              //   }}
-              //   source={handleSpecialFileExt(uriView)}
-              //   startInLoadingState
-              //   allowsFullscreenVideo
-              //   allowsInlineMediaPlayback
-              //   mixedContentMode="always"
-              //   androidLayerType="none"
-              //   sharedCookiesEnabled
-              //   javaScriptEnabled
-              //   allowFileAccess
-              //   scalesPageToFit
-              //   {...INJECTEDJAVASCRIPT}
-              //   onContentProcessDidTerminate={async (syntheticEvent) => {
-              //     // const { nativeEvent } = syntheticEvent;
-              //     // console.warn('Content process terminated, reloading', nativeEvent);
-              //     webviewRef.current.reload()
-              //   }}
-              //   cacheEnabled
-              // />
             ) : (
               <ImageViewer
-                imageUrls={[{ url: uriView }]}
+                imageUrls={[{ url: validateName('file://', uriView) || '' }]}
                 index={0}
                 renderIndicator={() => {
                   return <></>

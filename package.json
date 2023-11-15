@@ -71,6 +71,7 @@
     "react-native-tab-view": "^3.1.1",
     "react-native-vector-icons": "^9.2.0",
     "react-native-video": "^5.1.0-alpha8",
+    "react-native-vision-camera": "^2.15.2",
     "react-native-web": "0.17.7",
     "react-native-webview": "^13.6.2",
     "react-redux": "^8.0.2",

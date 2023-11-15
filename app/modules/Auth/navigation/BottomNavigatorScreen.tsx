@@ -1,5 +1,12 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import {
+  ActivityIndicator,
+  Dimensions,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 import BottomNavigation, {
   FullTab,
   TabConfig,
@@ -10,6 +17,7 @@ import Icon from 'react-native-vector-icons/Entypo'
 import { VectorColor } from '../../../components/color/VectorColor'
 import * as ImagePickerExpo from 'expo-image-picker'
 import ImagePicker from 'react-native-image-crop-picker'
+import { Camera, useCameraDevices } from 'react-native-vision-camera'
 import moment from 'moment'
 // import { ImagePicker } from 'expo-image-multiple-picker'
 import {
@@ -35,10 +43,13 @@ import {
 import { useNavigation } from '@react-navigation/native'
 import { AppRoutes } from '../../../components/routes/AppRoutes'
 import AsyncStorage from '@react-native-community/async-storage'
+import Entypo from 'react-native-vector-icons/Entypo'
+const { width, height } = Dimensions.get('window')
 
 export const BottomNavigatorScreen = () => {
   const [activeTab, setActiveTab] = useState<any>(null)
   const modalRef = useRef<FlexModalHandler | null>(null)
+  const modalCameraRef = useRef<FlexModalHandler | null>(null)
   const lottieRef = useRef<LottieView | null>(null)
   const galeryRef = useRef<LottieView | null>(null)
   const videoRef = useRef<LottieView | null>(null)
@@ -123,6 +134,21 @@ export const BottomNavigatorScreen = () => {
     }
   }, [])
 
+  const handleCameraOpen = useCallback(() => {
+    if (modalCameraRef.current) {
+      modalCameraRef.current.open({
+        title: '',
+        message: '',
+      })
+    }
+  }, [])
+
+  const handleCameraClose = useCallback(() => {
+    if (modalCameraRef.current) {
+      modalCameraRef.current.dismiss()
+    }
+  }, [])
+
   const onLink = React.useCallback((url: string) => {
     handleOpen()
   }, [])
@@ -157,39 +183,42 @@ export const BottomNavigatorScreen = () => {
   }, [])
 
   const onCamera = async () => {
-    ImagePicker.openCamera({
-      cropping: false,
-      multiple: true,
-      aspect: [4, 3],
-      quality: 0,
-      base64: true,
-    }).then((response: any) => {
-      var currentDate = moment().format('DD/MM/YYYY')
-      try {
-        AsyncStorage.getItem(KEY_STORAGE.KEY_IMAGE, (_, result: any) => {
-          if (result !== null) {
-            console.log('Data Found', result)
-            var newIds = Object.values(JSON.parse(result))?.concat({
-              date: currentDate,
-              uri: response[0] ? response[0]?.path : response?.path,
-            })
-            AsyncStorage.setItem(KEY_STORAGE.KEY_IMAGE, JSON.stringify(newIds))
-          } else {
-            console.log('Data Not Found')
-            AsyncStorage.setItem(
-              KEY_STORAGE.KEY_IMAGE,
-              JSON.stringify(response),
-            )
-          }
-        })
-      } catch (error) {
-        return error
-      }
-    })
+    handleClose()
+    setTimeout(() => {
+      handleCameraOpen()
+    }, 1000)
+    // ImagePicker.openCamera({
+    //   cropping: false,
+    //   multiple: true,
+    //   aspect: [4, 3],
+    //   quality: 0,
+    //   base64: true,
+    // }).then((response: any) => {
+    //   var currentDate = moment().format('DD/MM/YYYY')
+    //   try {
+    //     AsyncStorage.getItem(KEY_STORAGE.KEY_IMAGE, (_, result: any) => {
+    //       if (result !== null) {
+    //         console.log('Data Found', result)
+    //         var newIds = Object.values(JSON.parse(result))?.concat({
+    //           date: currentDate,
+    //           uri: response[0] ? response[0]?.path : response?.path,
+    //         })
+    //         AsyncStorage.setItem(KEY_STORAGE.KEY_IMAGE, JSON.stringify(newIds))
+    //       } else {
+    //         console.log('Data Not Found')
+    //         AsyncStorage.setItem(
+    //           KEY_STORAGE.KEY_IMAGE,
+    //           JSON.stringify(response),
+    //         )
+    //       }
+    //     })
+    //   } catch (error) {
+    //     return error
+    //   }
+    // })
   }
 
   const onVideo = useCallback(async () => {
- 
     // var currentDate = moment().format('DD/MM/YYYY')
     // try {
     //   AsyncStorage.getItem(KEY_STORAGE.KEY_IMAGE, (_, result: any) => {
@@ -243,6 +272,67 @@ export const BottomNavigatorScreen = () => {
     handleClose()
   }
 
+  const [cameraPermission, setCameraPermission] = useState()
+
+  useEffect(() => {
+    ;(async () => {
+      const cameraPermissionStatus: any = await Camera.requestCameraPermission()
+      setCameraPermission(cameraPermissionStatus)
+    })()
+  }, [])
+
+  const devices = useCameraDevices()
+  const cameraDevice = devices.back
+  const cameraRef = useRef<Camera>(null)
+
+  const renderDetectorContent = () => {
+    if (cameraDevice && cameraPermission === 'authorized') {
+      return (
+        <View style={{ width, height }}>
+          <Camera
+            ref={cameraRef}
+            style={{ flex: 1 }}
+            device={cameraDevice}
+            isActive={true}
+            photo={true}
+          />
+          <TouchableOpacity
+            style={{ position: 'absolute', zIndex: 9, bottom: 20, alignSelf :'center', }}
+            onPress={async () => {
+              if (cameraRef?.current) {
+                const response = await cameraRef.current.takePhoto({})
+                var currentDate = moment().format('DD/MM/YYYY')
+                try {
+                  AsyncStorage.getItem(KEY_STORAGE.KEY_IMAGE, (_, result: any) => {
+                    if (result !== null) {
+                      console.log('Data Found', result)
+                      var newIds = Object.values(JSON.parse(result))?.concat({
+                        date: currentDate,
+                        uri: response?.path,
+                      })
+                      AsyncStorage.setItem(KEY_STORAGE.KEY_IMAGE, JSON.stringify(newIds))
+                    } else {
+                      console.log('Data Not Found')
+                      AsyncStorage.setItem(
+                        KEY_STORAGE.KEY_IMAGE,
+                        JSON.stringify(response),
+                      )
+                    }
+                  })
+                } catch (error) {
+                  return error
+                }
+              }
+            }}
+          >
+            <Entypo name="circle" size={scale(60)} color={VectorColor.white} />
+          </TouchableOpacity>
+        </View>
+      )
+    }
+    return <ActivityIndicator size="large" color="#1C6758" />
+  }
+
   return (
     <>
       <BottomNavigation
@@ -250,6 +340,17 @@ export const BottomNavigatorScreen = () => {
         renderTab={renderTab}
         tabs={Tabs}
       />
+
+      <FlexModal
+        containerStyle={styles.containerModal}
+        ref={modalCameraRef}
+        animationIn={'slideInUp'}
+        animationOut={'slideOutDown'}
+        modalStyle={{ padding: 0, margin: 0 }}
+        onBackdropPress={handleClose}
+      >
+        {renderDetectorContent()}
+      </FlexModal>
 
       <FlexModal
         containerStyle={styles.containerModal}
