@@ -43,6 +43,7 @@ import Feather from 'react-native-vector-icons/Feather'
 import FastImage from 'react-native-fast-image'
 import { keyPath } from '../screens/galery/GaleryScreen'
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
+import { ViewPictureComponent } from '../../../components/ViewPictureCompinent'
 const { width, height } = Dimensions.get('window')
 
 export const BottomNavigatorScreen = () => {
@@ -276,12 +277,13 @@ export const BottomNavigatorScreen = () => {
         <EvilIcons
           style={{ position: 'absolute', zIndex: 2, right: 10, top: 10 }}
           name="close"
-          color={VectorColor.white}
+          color={VectorColor.black}
           size={scale(30)}
           onPress={() => {
             setShowViewList(false)
           }}
         />
+        {/*
         <FlatList
           data={listPicture}
           style={{
@@ -305,7 +307,8 @@ export const BottomNavigatorScreen = () => {
           horizontal={false}
           numColumns={3}
           keyExtractor={(_, index) => index.toString()}
-        />
+        /> */}
+        <ViewPictureComponent data={listPicture} isShow={true} />
       </>
     )
   }
