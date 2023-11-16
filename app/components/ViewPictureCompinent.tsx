@@ -106,8 +106,8 @@ export const ViewPictureComponent = ({ data, isShow }: Props) => {
   }, [])
 
   const handleClose = useCallback(() => {
+    setUriView('')
     if (modalImageRef.current) {
-      setUriView('')
       modalImageRef.current.dismiss()
     }
   }, [])
@@ -239,6 +239,7 @@ export const ViewPictureComponent = ({ data, isShow }: Props) => {
             handleOpen()
           }}
           onLongPress={() => {
+            if (isShow) return
             LayoutAnimation.easeInEaseOut()
             setShare(true)
             updateFieldChanged(item)
@@ -311,16 +312,19 @@ export const ViewPictureComponent = ({ data, isShow }: Props) => {
   return (
     <>
       {showShare && (
-        <EvilIcons
-          style={{ position: 'absolute', zIndex: 2, right: 10, top: 10 }}
-          name="close"
-          color={VectorColor.black}
-          size={scaleSize(30)}
+        <TouchableOpacity
           onPress={() => {
             setShare(false)
             setSelection([])
           }}
-        />
+        >
+          <EvilIcons
+            style={{ position: 'absolute', zIndex: 2, right: 10, top: 10 }}
+            name="close"
+            color={VectorColor.black}
+            size={scaleSize(30)}
+          />
+        </TouchableOpacity>
       )}
       <View
         style={{
@@ -352,18 +356,21 @@ export const ViewPictureComponent = ({ data, isShow }: Props) => {
           animationOut={'zoomOut'}
         >
           <View style={styles.containerImageRow}>
-            <Ionicons
-              name={'arrow-back'}
-              size={scaleSize(30)}
+            <TouchableOpacity
               style={{
                 left: scaleSize(10),
                 position: 'absolute',
                 zIndex: 99,
                 top: Platform.OS === 'ios' ? scaleSize(40) : 10,
               }}
-              color={VectorColor.white}
-              onPress={handleClose}
-            />
+              onPress={() => handleClose()}
+            >
+              <Ionicons
+                name={'arrow-back'}
+                size={scaleSize(30)}
+                color={VectorColor.white}
+              />
+            </TouchableOpacity>
             {uriView?.includes('.mov') || uriView?.includes('.mp4') ? (
               <Video
                 source={{ uri: uriView }} // Can be a URL or a local file.
@@ -376,7 +383,7 @@ export const ViewPictureComponent = ({ data, isShow }: Props) => {
                   onHandlerStateChange={onPinchStateChange}
                 >
                   <Animated.Image
-                    source={{ uri: validateName('file://', uriView) }}
+                    source={{ uri: uriView ? validateName('file://', uriView) : '' }}
                     style={{
                       width,
                       height,

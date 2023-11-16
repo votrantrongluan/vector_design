@@ -3,6 +3,7 @@ import {
   ActivityIndicator,
   Dimensions,
   FlatList,
+  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -273,43 +274,17 @@ export const BottomNavigatorScreen = () => {
 
   const renderListImageView = () => {
     return (
-      <>
-        <EvilIcons
-          style={{ position: 'absolute', zIndex: 2, right: 10, top: 10 }}
-          name="close"
-          color={VectorColor.black}
-          size={scale(30)}
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <TouchableOpacity
+          style={{ zIndex: 33, marginTop: 40 }}
           onPress={() => {
             setShowViewList(false)
           }}
-        />
-        {/*
-        <FlatList
-          data={listPicture}
-          style={{
-            backgroundColor: 'black',
-            paddingHorizontal: scale(2),
-            paddingVertical: scale(10),
-          }}
-          renderItem={({ item }) => {
-            return (
-              <FastImage
-                source={{ uri: validateName('file://', item) }}
-                style={{
-                  width: width / 3,
-                  height: scale(130),
-                  marginHorizontal: scale(2),
-                  marginVertical: scale(3),
-                }}
-              />
-            )
-          }}
-          horizontal={false}
-          numColumns={3}
-          keyExtractor={(_, index) => index.toString()}
-        /> */}
+        >
+          <EvilIcons name="close" color={VectorColor.black} size={scale(30)} />
+        </TouchableOpacity>
         <ViewPictureComponent data={listPicture} isShow={true} />
-      </>
+      </View>
     )
   }
 
