@@ -37,7 +37,7 @@ import javax.annotation.Nullable;
 public class ReactBowserManager extends SimpleViewManager<ReactImageView> {
     // This is the string we use to identify this view when we call
     // requireNativeComponent("RCTBowserView") in JS.
-    public static final String REACT_CLASS = "RCTBowserView";
+    public static final String REACT_CLASS = "RCTBrowserView";
 
     // We hang onto a reference of our React app context for later use.
     ReactApplicationContext mCallerContext;
