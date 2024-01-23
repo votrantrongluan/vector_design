@@ -1,5 +1,13 @@
-import React, { useCallback, useRef, useState } from 'react'
-import { StyleSheet, Dimensions, View, Text } from 'react-native'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import {
+  StyleSheet,
+  Dimensions,
+  View,
+  Text,
+  NativeModules,
+  NativeEventEmitter,
+} from 'react-native'
+import { BrowserView } from '../../../components/browser'
 import { VectorColor } from '../../../components/color/VectorColor'
 import { scale } from '../../../components/ScalingUtils'
 import Carousel, { Pagination } from '../../../components/snapCarousel'
@@ -8,6 +16,8 @@ import { ENTRIES1, TranSlationLanguage } from '../../../utils/constants'
 import { DetailScreens } from './DetailScreens'
 import { ServicesScreen } from './services-screens/ServicesScreen'
 const { width: viewportWidth } = Dimensions.get('window')
+const { CustomMethods, QRScannerModule } = NativeModules
+const qrScannerEmitter = new NativeEventEmitter(QRScannerModule)
 
 function wp(percentage: any) {
   const value = (percentage * viewportWidth) / 100
@@ -53,6 +63,38 @@ export const HomeScreen = () => {
   const onClose = useCallback(() => {
     setVisible(false)
   }, [])
+
+  const onCallIOSNativeMethod = () => {
+    // Connected Module From IOS
+    // console.log('calling')
+    // CustomMethods?.MyMethod('Testing from RN to IOS')
+
+    // QR Scan
+    QRScannerModule.startScanning()
+  }
+
+  useEffect(() => {
+    // const YourModuleEvents = new NativeEventEmitter(
+    //   NativeModules.RNEventEmitter,
+    // )
+
+    // const eventListener = YourModuleEvents.addListener('onReady', (string) => {
+    //   console.log('🚀 ~ eventListener ~ string:', string)
+    // })
+    const subscription = qrScannerEmitter.addListener(
+      'onQRCodeScanned',
+      (data) => {
+        console.log({ qqqqq: data.qrCode }) // Handle the scanned QR code
+      },
+    )
+
+    // Don't forget to unsubscribe when the component unmounts
+    subscription.remove()
+  }, [])
+
+  return (
+    <BrowserView style={{ flex: 1 }} onPress={(event) => undefined} />
+  )
 
   return (
     <View style={styles.container}>
@@ -110,7 +152,7 @@ const styles = StyleSheet.create({
   },
   paginationContainer: {
     paddingVertical: 8,
-    marginTop: scale(40)
+    marginTop: scale(40),
   },
   paginationDot: {
     width: 8,

@@ -1,12 +1,20 @@
 //
-//  RCTBrowerImageView.h
+//  BrowerImageView.h
 //  vectordesign
 //
 //  Created by Luan on 23/01/2024.
 //
 
-#ifndef RCTBrowerImageView_h
-#define RCTBrowerImageView_h
+#ifndef BrowerImageView_h
+#define BrowerImageView_h
 
+#import <React/RCTComponent.h>
+#import <UIKit/UIKit.h>
 
-#endif /* RCTBrowerImageView_h */
+@interface RCTBrowerImageView: UIImageView
+
+@property (nonatomic, copy) RCTBubblingEventBlock onPress;
+
+@end
+
+#endif /* BrowerImageView_h */

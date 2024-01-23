@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F27F6912B57C64600A5001B /* DynamiclslandModulele.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F27F6902B57C64600A5001B /* DynamiclslandModulele.swift */; };
+		0F27F6932B57CAC300A5001B /* CustomMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F27F6922B57CAC300A5001B /* CustomMethods.m */; };
+		0F27F6952B57CD8900A5001B /* CustomMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F27F6942B57CD8900A5001B /* CustomMethods.swift */; };
+		0F27F6972B57D1C300A5001B /* ENEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F27F6962B57D1C300A5001B /* ENEventEmitter.m */; };
+		0F27F6992B57D27A00A5001B /* RNEventEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F27F6982B57D27A00A5001B /* RNEventEmitter.swift */; };
+		0F27F69B2B57D89000A5001B /* QRScannerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F27F69A2B57D89000A5001B /* QRScannerModule.swift */; };
+		0F27F69D2B57D8AE00A5001B /* QRScannerModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F27F69C2B57D8AE00A5001B /* QRScannerModule.m */; };
+		0FAEDDFD2B5F7C7E00D9E899 /* RCTBrowerViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FAEDDFC2B5F7C7E00D9E899 /* RCTBrowerViewManager.m */; };
+		0FAEDE032B5F83E400D9E899 /* RCTBrowerImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FAEDE022B5F83E400D9E899 /* RCTBrowerImageView.m */; };
 		0FEE2CAB2AFC974C00E336A7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0FEE2CAA2AFC974C00E336A7 /* GoogleService-Info.plist */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -19,6 +28,17 @@
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		0F27F6902B57C64600A5001B /* DynamiclslandModulele.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamiclslandModulele.swift; sourceTree = "<group>"; };
+		0F27F6922B57CAC300A5001B /* CustomMethods.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomMethods.m; sourceTree = "<group>"; };
+		0F27F6942B57CD8900A5001B /* CustomMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMethods.swift; sourceTree = "<group>"; };
+		0F27F6962B57D1C300A5001B /* ENEventEmitter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ENEventEmitter.m; sourceTree = "<group>"; };
+		0F27F6982B57D27A00A5001B /* RNEventEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNEventEmitter.swift; sourceTree = "<group>"; };
+		0F27F69A2B57D89000A5001B /* QRScannerModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerModule.swift; sourceTree = "<group>"; };
+		0F27F69C2B57D8AE00A5001B /* QRScannerModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QRScannerModule.m; sourceTree = "<group>"; };
+		0FAEDDFC2B5F7C7E00D9E899 /* RCTBrowerViewManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTBrowerViewManager.m; sourceTree = "<group>"; };
+		0FAEDDFE2B5F7C8E00D9E899 /* RCTBrowerViewManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTBrowerViewManager.h; sourceTree = "<group>"; };
+		0FAEDE022B5F83E400D9E899 /* RCTBrowerImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTBrowerImageView.m; sourceTree = "<group>"; };
+		0FAEDE042B5F845D00D9E899 /* RCTBrowerImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTBrowerImageView.h; sourceTree = "<group>"; };
 		0FEE2CAA2AFC974C00E336A7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* yes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = vectordesign/AppDelegate.h; sourceTree = "<group>"; };
@@ -59,6 +79,17 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
+				0F27F6902B57C64600A5001B /* DynamiclslandModulele.swift */,
+				0F27F6922B57CAC300A5001B /* CustomMethods.m */,
+				0F27F6942B57CD8900A5001B /* CustomMethods.swift */,
+				0F27F6962B57D1C300A5001B /* ENEventEmitter.m */,
+				0F27F6982B57D27A00A5001B /* RNEventEmitter.swift */,
+				0F27F69A2B57D89000A5001B /* QRScannerModule.swift */,
+				0F27F69C2B57D8AE00A5001B /* QRScannerModule.m */,
+				0FAEDDFC2B5F7C7E00D9E899 /* RCTBrowerViewManager.m */,
+				0FAEDE022B5F83E400D9E899 /* RCTBrowerImageView.m */,
+				0FAEDDFE2B5F7C8E00D9E899 /* RCTBrowerViewManager.h */,
+				0FAEDE042B5F845D00D9E899 /* RCTBrowerImageView.h */,
 			);
 			name = vectordesign;
 			sourceTree = "<group>";
@@ -341,9 +372,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FAEDDFD2B5F7C7E00D9E899 /* RCTBrowerViewManager.m in Sources */,
+				0F27F6912B57C64600A5001B /* DynamiclslandModulele.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				0F27F69D2B57D8AE00A5001B /* QRScannerModule.m in Sources */,
+				0F27F6992B57D27A00A5001B /* RNEventEmitter.swift in Sources */,
+				0F27F6972B57D1C300A5001B /* ENEventEmitter.m in Sources */,
+				0F27F69B2B57D89000A5001B /* QRScannerModule.swift in Sources */,
+				0F27F6952B57CD8900A5001B /* CustomMethods.swift in Sources */,
+				0F27F6932B57CAC300A5001B /* CustomMethods.m in Sources */,
 				B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */,
+				0FAEDE032B5F83E400D9E899 /* RCTBrowerImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
